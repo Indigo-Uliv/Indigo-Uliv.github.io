@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+
+<!-- Begin Jekyll SEO tag v2.3.0 -->
+<title>Indigo Presentation | Indigo Data management System</title>
+<meta property="og:title" content="Indigo Presentation" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="http://localhost:4000/presentation.html" />
+<meta property="og:url" content="http://localhost:4000/presentation.html" />
+<meta property="og:site_name" content="Indigo Data management System" />
+<script type="application/ld+json">
+{"name":null,"description":null,"author":null,"@type":"WebPage","url":"http://localhost:4000/presentation.html","publisher":null,"image":null,"headline":"Indigo Presentation","dateModified":null,"datePublished":null,"sameAs":null,"mainEntityOfPage":null,"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#157878">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/assets/css/style.css?v=ae7e950b6288139b6817ea01f2c3bb420626003c">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Indigo Data management System</h1>
+      <h2 class="project-tagline"></h2>
+      
+        <a href="http://github.com/Indigo-Uliv" class="btn">View on GitHub</a>
+      
+      
+    </section>
+
+    <section class="main-content">
+      <h1 id="indigo-presentation">Indigo Presentation</h1>
+
+<p>Indigo is an open source Data Management System designed for large-scale storage.
+It provides distributed, robust and extensible storage capabilities, coupling
+an object store to an easy to use trigger/rules system. This combination allows
+for scalable systems that can self-manage, are not reliant on complex workflow
+systems or external management frameworks. Relatively simple configurations
+allow for distributed ingest, transformation and curation, without the need to
+have complex scheduling frameworks.</p>
+
+<p>Indigo supports a query mechanism to store and retrieve the data. It implements
+a substantial subset of the Cloud Data Management Interface (CDMI) RESTful API
+to access the data. To retrieve or store an object, the full path in the
+container hierarchy must be specified. Alternatively, retrieval may be via the
+repository assigned unique identifier, as per the CDMI specification. It is also
+possible to locate objects by specifying metadata names or values in the URI
+query field.</p>
+
+<p>Indigo supports data sharing, or interoperability between external data stores.
+This “virtualisation” capability is important because of the need to operate
+across radically different types of storage and processing technologies; and
+for the ability of users to access and share data. The actual data (e.g. the
+blob of a digital object) is not held in Indigo but referenced via its URL.</p>
+
+<p>Indigo supports the generation and maintenance of audit trails for specific
+operations or events. This is important in order to trace the history of the
+operations, and to prove that all operations on the digital entities were
+performed by authorised users, including the update of the authenticity
+metadata itself.</p>
+
+<p>Indigo uses the MQTT protocol to publish notifications when events take place in
+the system. The rule engine (“listener”) subscribes to these notifications and
+triggers rule actions in any scripting language (e.g. Python). The rule engine
+can be used to automate the enforcement of policies as required for the use
+cases. Indigo supports data management policies at a micro level (e.g.
+replication) and at a macro level (e.g. policies used to manage the versions of
+a data object).</p>
+
+<p>Indigo supports authentication as part of its ability to track the identity of
+users working in a high-security environment. This is important given
+confidentiality and data protection requirements. Indigo is controlled using
+standardised ACL (access control lists), which can be applied at any level and
+will apply to the sub-tree in the same way as storage policy.</p>
+
+<p>Indigo provides an additional graph store to model the relationships between the
+entities managed by the system. Using Gremlin language it is possible to express
+semantic queries to explore deep relations between entities.</p>
+
+
+    </section>
+
+    
+  </body>
+</html>
