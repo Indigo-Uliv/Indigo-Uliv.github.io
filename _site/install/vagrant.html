@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+
+<!-- Begin Jekyll SEO tag v2.3.0 -->
+<title>Vagrant configuration | Indigo</title>
+<meta property="og:title" content="Vagrant configuration" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="http://localhost:4000/install/vagrant.html" />
+<meta property="og:url" content="http://localhost:4000/install/vagrant.html" />
+<meta property="og:site_name" content="Indigo" />
+<script type="application/ld+json">
+{"name":null,"description":null,"author":null,"@type":"WebPage","url":"http://localhost:4000/install/vagrant.html","publisher":null,"image":null,"headline":"Vagrant configuration","dateModified":null,"datePublished":null,"sameAs":null,"mainEntityOfPage":null,"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#157878">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/assets/css/style.css?v=3782dea3cef775fa86290c2b1073b38ea00d6427">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Indigo</h1>
+      <h2 class="project-tagline"></h2>
+      
+        <a href="http://github.com/Indigo-Uliv" class="btn">View on GitHub</a>
+      
+      
+    </section>
+
+    <section class="main-content">
+      <h1 id="vagrant-configuration">Vagrant configuration</h1>
+
+<p>Indigo provides a set of configuration files for [Vagrant] (https://www.vagrantup.com/) that can be used to quickly provision a
+machine or a cluster to experiment with the system. These are some examples that can be used to start ubuntu or fedora machines.</p>
+
+<h2 id="ubuntu-1604">Ubuntu 16.04</h2>
+
+<ul>
+  <li><em>Vagrantfile</em></li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># -*- mode: ruby -*-</span>
+<span class="c1"># vi: set ft=ruby :</span>
+
+<span class="no">Vagrant</span><span class="p">.</span><span class="nf">configure</span><span class="p">(</span><span class="s2">"2"</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">config</span><span class="o">|</span>
+
+  <span class="n">config</span><span class="p">.</span><span class="nf">vm</span><span class="p">.</span><span class="nf">define</span> <span class="s2">"node0"</span> <span class="k">do</span> <span class="o">|</span><span class="n">node0</span><span class="o">|</span>
+    <span class="n">node0</span><span class="p">.</span><span class="nf">vm</span><span class="p">.</span><span class="nf">box</span> <span class="o">=</span> <span class="s2">"hashicorp/precise64"</span>
+    <span class="n">node0</span><span class="p">.</span><span class="nf">vm</span><span class="p">.</span><span class="nf">box_version</span> <span class="o">=</span> <span class="s2">"1.1.0"</span>
+    <span class="n">node0</span><span class="p">.</span><span class="nf">vm</span><span class="p">.</span><span class="nf">network</span> <span class="s2">"private_network"</span><span class="p">,</span> <span class="ss">ip: </span><span class="s2">"192.168.12.10"</span>
+
+    <span class="n">node0</span><span class="p">.</span><span class="nf">vm</span><span class="p">.</span><span class="nf">provider</span> <span class="s2">"virtualbox"</span> <span class="k">do</span> <span class="o">|</span><span class="n">v</span><span class="o">|</span>
+       <span class="n">v</span><span class="p">.</span><span class="nf">memory</span> <span class="o">=</span> <span class="s2">"1024"</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<h2 id="fedora-27">Fedora 27</h2>
+
+<ul>
+  <li><em>Vagrantfile</em></li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># -*- mode: ruby -*-</span>
+<span class="c1"># vi: set ft=ruby :</span>
+
+<span class="no">Vagrant</span><span class="p">.</span><span class="nf">configure</span><span class="p">(</span><span class="s2">"2"</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">config</span><span class="o">|</span>
+
+  <span class="n">config</span><span class="p">.</span><span class="nf">vm</span><span class="p">.</span><span class="nf">define</span> <span class="s2">"node0"</span> <span class="k">do</span> <span class="o">|</span><span class="n">node0</span><span class="o">|</span>
+    <span class="n">indigo</span><span class="p">.</span><span class="nf">vm</span><span class="p">.</span><span class="nf">box</span> <span class="o">=</span> <span class="s2">"generic/fedora27"</span>
+    <span class="n">node0</span><span class="p">.</span><span class="nf">vm</span><span class="p">.</span><span class="nf">network</span> <span class="s2">"private_network"</span><span class="p">,</span> <span class="ss">ip: </span><span class="s2">"192.168.12.11"</span>
+
+    <span class="n">node0</span><span class="p">.</span><span class="nf">vm</span><span class="p">.</span><span class="nf">provider</span> <span class="s2">"virtualbox"</span> <span class="k">do</span> <span class="o">|</span><span class="n">v</span><span class="o">|</span>
+       <span class="n">v</span><span class="p">.</span><span class="nf">memory</span> <span class="o">=</span> <span class="s2">"1024"</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<h2 id="usage">Usage</h2>
+
+<h3 id="create-and-provision-the-box">Create and provision the box</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ vagrant up
+</code></pre></div></div>
+
+<h3 id="log-to-the-box">Log to the box</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ vagrant ssh
+</code></pre></div></div>
+
+<h3 id="troubleshooting">Troubleshooting</h3>
+
+<p>If there’s an error for the install of the virtualbox guest additions you can try
+a manual install. vbguest is useful to share folders to the box.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ vagrant up
+$ vagrant vbguest --do install --no-cleanup
+</code></pre></div></div>
+
+<p>Then in the box</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$vagrant ssh
+</code></pre></div></div>
+
+<p>Run the installer manually</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo /mnt/VBoxLinuxAdditions.run
+</code></pre></div></div>
+
+
+    </section>
+
+    
+  </body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+
+<!-- Begin Jekyll SEO tag v2.3.0 -->
+<title>Ubuntu 16.04 server configuration | Indigo</title>
+<meta property="og:title" content="Ubuntu 16.04 server configuration" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="http://localhost:4000/install/ubuntu_16_04.html" />
+<meta property="og:url" content="http://localhost:4000/install/ubuntu_16_04.html" />
+<meta property="og:site_name" content="Indigo" />
+<script type="application/ld+json">
+{"name":null,"description":null,"author":null,"@type":"WebPage","url":"http://localhost:4000/install/ubuntu_16_04.html","publisher":null,"image":null,"headline":"Ubuntu 16.04 server configuration","dateModified":null,"datePublished":null,"sameAs":null,"mainEntityOfPage":null,"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#157878">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/assets/css/style.css?v=3782dea3cef775fa86290c2b1073b38ea00d6427">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Indigo</h1>
+      <h2 class="project-tagline"></h2>
+      
+        <a href="http://github.com/Indigo-Uliv" class="btn">View on GitHub</a>
+      
+      
+    </section>
+
+    <section class="main-content">
+      <h1 id="ubuntu-1604-server-configuration">Ubuntu 16.04 server configuration</h1>
+
+<h3 id="create-a-sudo-user">Create a sudo user</h3>
+
+<p>Indigo expects a user named <em><strong>indigo</strong></em> with sudo access</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo adduser indigo
+$ sudo adduser indigo sudo
+</code></pre></div></div>
+
+<h3 id="configure-hostname">Configure hostname</h3>
+
+<p>It is useful for Cassandra to configure properly hostnames if you plan to
+create a ring for the database</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo hostname ring-0
+$ sudo nano /etc/hostname
+$ sudo nano /etc/hosts
+</code></pre></div></div>
+
+<h3 id="configure-network-interface">Configure network interface</h3>
+
+<p>On virtual machines it may be useful to use another network interface so the
+web server on the server can be accessed from the host. This is the
+configuration you can used to define a static IP (attached to the host-only
+adapter in VirtualBox for instance)</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo nano /etc/network/interfaces
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>auto enp0s8  
+iface enp0s8 inet static
+  address 192.168.56.110
+  netmask 255.255.255.0
+  network 192.168.56.0
+  broadcast 192.168.56.255
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo ifdown enp0s8
+$ sudo ifup enp0s8
+</code></pre></div></div>
+
+<h3 id="configure-ssh">Configure ssh</h3>
+
+<p>See <a href="ssh">SSH Configuration</a>.</p>
+
+<h3 id="install-python-27">Install Python 2.7</h3>
+
+<p>Python 2.7 should already be installed on ubuntu 14.04 but not on Ubuntu 16.04</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo apt install python-minimal
+</code></pre></div></div>
+
+
+    </section>
+
+    
+  </body>
+</html>

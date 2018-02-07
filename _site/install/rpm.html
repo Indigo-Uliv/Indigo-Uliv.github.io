@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+
+<!-- Begin Jekyll SEO tag v2.3.0 -->
+<title>Install the RPM version of Indigo libs and Indigo Web Server | Indigo</title>
+<meta property="og:title" content="Install the RPM version of Indigo libs and Indigo Web Server" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="http://localhost:4000/install/rpm.html" />
+<meta property="og:url" content="http://localhost:4000/install/rpm.html" />
+<meta property="og:site_name" content="Indigo" />
+<script type="application/ld+json">
+{"name":null,"description":null,"author":null,"@type":"WebPage","url":"http://localhost:4000/install/rpm.html","publisher":null,"image":null,"headline":"Install the RPM version of Indigo libs and Indigo Web Server","dateModified":null,"datePublished":null,"sameAs":null,"mainEntityOfPage":null,"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#157878">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/assets/css/style.css?v=3782dea3cef775fa86290c2b1073b38ea00d6427">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Indigo</h1>
+      <h2 class="project-tagline"></h2>
+      
+        <a href="http://github.com/Indigo-Uliv" class="btn">View on GitHub</a>
+      
+      
+    </section>
+
+    <section class="main-content">
+      <h1 id="install-the-rpm-version-of-indigo-libs-and-indigo-web-server">Install the RPM version of Indigo libs and Indigo Web Server</h1>
+
+<h2 id="get-the-rpm">Get the rpm</h2>
+
+<p>The <a href="https://github.com/Indigo-Uliv/indigo-rpm">Indigo-rpm</a>
+project contains the RPM that can be used to install an indigo server on a
+fedora/redhat system.</p>
+
+<h2 id="prerequisite">Prerequisite</h2>
+
+<h3 id="java-8-needed-by-cassandradse">Java 8 (Needed by Cassandra/DSE)</h3>
+
+<p>Install Oracle Java SE Runtime Environment 8 (JDK) (1.8.0_40 minimum) or
+OpenJDK 8. Earlier or later versions are not supported by DataStax Enterprise.</p>
+
+<p>See <a href="https://docs.datastax.com/en/dse/5.1/dse-dev/datastax_enterprise/install/installJdkRHEL.html">Datastax Documentation</a>
+and Download Java SE 8 from <a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html">Oracle Website</a>.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo rpm -ivh jdk-8u121-linux-x64.rpm
+$ sudo alternatives --install /usr/bin/java java /usr/java/jdk1.8.0_121/bin/java 200000
+$ sudo alternatives --config java
+</code></pre></div></div>
+
+<h3 id="datastax-enterprise-51">DataStax Enterprise 5.1</h3>
+
+<p>See <a href="https://docs.datastax.com/en/dse/5.1/dse-admin/datastax_enterprise/install/installRHELdse.html">Datastax Documentation</a></p>
+
+<h4 id="add-the-datastax-yum-repository-to-etcyumreposddatastaxrepo">Add the DataStax Yum repository to /etc/yum.repos.d/datastax.repo:</h4>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo nano /etc/yum.repos.d/datastax.repo
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[datastax]
+name = DataStax Repo for DataStax Enterprise
+baseurl=https://dsa_email_address:password@rpm.datastax.com/enterprise
+enabled=1
+gpgcheck=0
+</code></pre></div></div>
+
+<h4 id="install-dse-507-1">Install DSE 5.0.7-1</h4>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo yum install dse-full-5.0.7-1
+</code></pre></div></div>
+
+<h4 id="configure-dse-507-1">Configure DSE 5.0.7-1</h4>
+
+<ul>
+  <li>Stop DSE</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo systemctl stop dse.service
+</code></pre></div></div>
+
+<ul>
+  <li>Clear Cassandra logs</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ echo -n | sudo tee /var/log/cassandra/system.log
+</code></pre></div></div>
+
+<ul>
+  <li>Remove cluster metadata</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo rm -rf /var/lib/cassandra/*
+</code></pre></div></div>
+
+<ul>
+  <li>Modify Cassandra config file</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo nano /etc/dse/cassandra/cassandra.yaml
+</code></pre></div></div>
+
+<p>node_ip is the IP address used by Cassandra nodes to communicate with each other
+(In case of a single node cluster the default value should work correctly).</p>
+
+<p>Values to modify:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cluster_name: 'indigo_cluster'
+num_tokens: 128
+seeds: "node_ip"
+listen_address: node_ip
+broadcast_address: node_ip
+</code></pre></div></div>
+
+<ul>
+  <li>Modify DSE config file</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo nano /etc/default/dse
+</code></pre></div></div>
+
+<p>Value to modify:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>GRAPH_ENABLED=1
+</code></pre></div></div>
+
+<ul>
+  <li>Restart DSE</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo systemctl start dse.service
+</code></pre></div></div>
+
+<h2 id="install-indigo-libs">Install Indigo libs</h2>
+
+<h3 id="install-dependencies">Install dependencies</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo yum install -y automake gcc gcc-c++ kernel-devel git htop iotop python-pip python-virtualenv
+</code></pre></div></div>
+
+<h3 id="install-rpm">Install RPM</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ cd /vagrant
+$ sudo rpm -ivh indigo-1.2-1.noarch.rpm
+</code></pre></div></div>
+
+<h2 id="install-indigo-web-package">Install Indigo-web package</h2>
+
+<h3 id="install-dependencies-1">Install dependencies</h3>
+
+<p>Install Indigo lib</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo yum install -y expect nginx openldap-devel
+</code></pre></div></div>
+
+<h3 id="install-rpm-1">Install RPM</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo rpm -ivh indigo-web-1.2-1.noarch.rpm
+</code></pre></div></div>
+
+<h3 id="create-the-virtual-environment-for-the-web-app">Create the virtual environment for the web app</h3>
+
+<p>As the user indigo (<code class="highlighter-rouge">sudo -i -u indigo</code>)</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ virtualenv /var/lib/indigo/web
+$ ln -s /var/lib/indigo/indigo-web /var/lib/indigo/web/project
+</code></pre></div></div>
+
+<h3 id="install-indigo-lib-in-the-the-virtual-env">Install Indigo lib in the the virtual env</h3>
+
+<p>As the user indigo (<code class="highlighter-rouge">sudo -i -u indigo</code>)</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ cd /var/lib/indigo/indigo
+$ /var/lib/indigo/web/bin/pip install -r requirements.txt
+$ /var/lib/indigo/web/bin/python setup.py develop
+</code></pre></div></div>
+
+<h3 id="install-requirements-for-indigo-web-in-the-the-virtual-env">Install requirements for Indigo-web in the the virtual env</h3>
+
+<p>As the user indigo (<code class="highlighter-rouge">sudo -i -u indigo</code>)</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ cd /var/lib/indigo/web/project
+$ /var/lib/indigo/web/bin/pip install -r requirements.txt
+</code></pre></div></div>
+
+<h3 id="create-the-cassandra-database">Create the Cassandra database</h3>
+
+<p>As the user indigo (<code class="highlighter-rouge">sudo -i -u indigo</code>)</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ /var/lib/indigo/web/bin/iadmin create
+</code></pre></div></div>
+
+<h3 id="collect-static-pages-django">Collect static pages (Django)</h3>
+
+<p>As the user indigo (<code class="highlighter-rouge">sudo -i -u indigo</code>)</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ /var/lib/indigo/web/bin/python /var/lib/indigo/web/project/manage.py collectstatic --noinput
+</code></pre></div></div>
+
+<h3 id="initialise-django-database">Initialise Django database</h3>
+
+<p>As the user indigo (<code class="highlighter-rouge">sudo -i -u indigo</code>)</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ /var/lib/indigo/web/bin/python /var/lib/indigo/web/project/manage.py syncdb
+</code></pre></div></div>
+
+<h3 id="create-default-users">Create default users</h3>
+
+<p>As the user indigo (<code class="highlighter-rouge">sudo -i -u indigo</code>)</p>
+
+<p>indigo is an administrator</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ /var/lib/indigo/web/bin/iadmin mkuser indigo
+$ /var/lib/indigo/web/bin/iadmin mkuser guest
+</code></pre></div></div>
+
+<h3 id="create-default-groups">Create default groups</h3>
+
+<p>As the user indigo (<code class="highlighter-rouge">sudo -i -u indigo</code>)</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ /var/lib/indigo/web/bin/iadmin mkgroup admins
+$ /var/lib/indigo/web/bin/iadmin mkgroup guest
+</code></pre></div></div>
+
+<h3 id="add-users-to-groups">Add users to groups</h3>
+
+<p>As the user indigo (<code class="highlighter-rouge">sudo -i -u indigo</code>)</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ /var/lib/indigo/web/bin/iadmin atg admins indigo
+$ /var/lib/indigo/web/bin/iadmin atg guest guest
+</code></pre></div></div>
+
+<h2 id="serve-indigo-web-with-gunicorn">Serve Indigo-web with gunicorn</h2>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ cd /var/lib/indigo/web/project/
+$ source /var/lib/indigo/web/bin/activate
+$ gunicorn indigo_ui.wsgi
+</code></pre></div></div>
+<p>It is possible to specify the IP used to serve the web app</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ gunicorn -b 192.168.50.4 indigo_ui.wsgi
+</code></pre></div></div>
+
+<p>Indigo should be available at http://{node-ip}:8000</p>
+
+<p>Eventually you may have to stop the firewall (or configure it)</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo systemctl stop firewalld
+</code></pre></div></div>
+
+<h2 id="serve-using-nginx">Serve using Nginx</h2>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo mkdir /etc/nginx/sites-available
+$ sudo mkdir /etc/nginx/sites-enabled
+$ sudo cp conf/nginx_redhat /etc/nginx/nginx.conf
+$ sudo cp conf/indigo-web.nginx /etc/nginx/sites-available/indigo_http
+$ sudo ln -s /etc/nginx/sites-available/indigo_http /etc/nginx/sites-enabled/indigo_http
+$ sudo systemctl restart nginx.service
+</code></pre></div></div>
+
+<h3 id="configure-indigo-web-init-script-systemctl">Configure Indigo-web init script (systemctl)</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo cp conf/indigo-web.service.redhat /etc/systemd/system/indigo-web.service
+$ sudo systemctl daemon-reload
+$ sudo systemctl restart indigo-web.service
+</code></pre></div></div>
+
+
+    </section>
+
+    
+  </body>
+</html>

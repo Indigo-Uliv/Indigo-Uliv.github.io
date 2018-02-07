@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+
+<!-- Begin Jekyll SEO tag v2.3.0 -->
+<title>VirtualBox Configuration | Indigo</title>
+<meta property="og:title" content="VirtualBox Configuration" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="http://localhost:4000/install/virtualbox.html" />
+<meta property="og:url" content="http://localhost:4000/install/virtualbox.html" />
+<meta property="og:site_name" content="Indigo" />
+<script type="application/ld+json">
+{"name":null,"description":null,"author":null,"@type":"WebPage","url":"http://localhost:4000/install/virtualbox.html","publisher":null,"image":null,"headline":"VirtualBox Configuration","dateModified":null,"datePublished":null,"sameAs":null,"mainEntityOfPage":null,"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#157878">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/assets/css/style.css?v=3782dea3cef775fa86290c2b1073b38ea00d6427">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Indigo</h1>
+      <h2 class="project-tagline"></h2>
+      
+        <a href="http://github.com/Indigo-Uliv" class="btn">View on GitHub</a>
+      
+      
+    </section>
+
+    <section class="main-content">
+      <h1 id="virtualbox-configuration">VirtualBox Configuration</h1>
+
+<p>If you want to experiment on a local virtual machine (VM) using virtualbox for
+instance, this is the usual configuration I’m using:</p>
+
+<ul>
+  <li>Create a Host-ony Network in the VirtualBox settings (vboxnet0)
+    <ul>
+      <li>IPv4 address 192.168.56.1</li>
+    </ul>
+  </li>
+  <li>Basic configuration with enough memory, 1 hard disk</li>
+  <li>Adapter 1 attached to NAT</li>
+  <li>Adapter 2 attached to Host-only adapter (vboxnet0) so Host and Guest can see
+each other on the 192.168.56.x network.</li>
+</ul>
+
+
+    </section>
+
+    
+  </body>
+</html>

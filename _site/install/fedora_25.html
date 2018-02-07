@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+
+<!-- Begin Jekyll SEO tag v2.3.0 -->
+<title>Fedora 25 server configuration | Indigo</title>
+<meta property="og:title" content="Fedora 25 server configuration" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="http://localhost:4000/install/fedora_25.html" />
+<meta property="og:url" content="http://localhost:4000/install/fedora_25.html" />
+<meta property="og:site_name" content="Indigo" />
+<script type="application/ld+json">
+{"name":null,"description":null,"author":null,"@type":"WebPage","url":"http://localhost:4000/install/fedora_25.html","publisher":null,"image":null,"headline":"Fedora 25 server configuration","dateModified":null,"datePublished":null,"sameAs":null,"mainEntityOfPage":null,"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#157878">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/assets/css/style.css?v=3782dea3cef775fa86290c2b1073b38ea00d6427">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Indigo</h1>
+      <h2 class="project-tagline"></h2>
+      
+        <a href="http://github.com/Indigo-Uliv" class="btn">View on GitHub</a>
+      
+      
+    </section>
+
+    <section class="main-content">
+      <h1 id="fedora-25-server-configuration">Fedora 25 server configuration</h1>
+
+<h3 id="create-a-sudo-user">Create a sudo user</h3>
+
+<p>Indigo expects a user named <em><strong>indigo</strong></em> with sudo access</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo adduser indigo
+$ sudo adduser indigo sudo
+</code></pre></div></div>
+
+<h3 id="configure-hostname">Configure hostname</h3>
+
+<p>It is useful for Cassandra to configure properly hostnames if you plan to
+create a ring for the database</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo hostname ring-1
+$ sudo nano /etc/hostname
+$ sudo nano /etc/hosts
+</code></pre></div></div>
+
+<h3 id="configure-network-interface">Configure network interface</h3>
+
+<p>On virtual machines it may be useful to use another network interface so the
+web server on the server can be accessed from the host. This is the
+configuration you can used to define a static IP (attached to the host-only
+adapter in VirtualBox for instance)</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo nano /etc/sysconfig/network-scripts/ifcfg-enp0s8
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>NAME=enp0s8
+BOOTPROTO=static
+ONBOOT=yes
+IPADDR=192.168.56.111
+NETMASK=255.255.255.0
+BROADCAST=192.168.56.255
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo ifdown enp0s8
+$ sudo ifup enp0s8
+</code></pre></div></div>
+
+<h3 id="configure-ssh">Configure ssh</h3>
+
+<p>See <a href="ssh">SSH Configuration</a>.</p>
+
+<h3 id="install-python-27">Install Python 2.7</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo yum install -y python27
+$ sudo yum install -y python2-dnf
+$ sudo yum install -y libselinux-python
+$ sudo dnf install -y yum
+</code></pre></div></div>
+
+<h3 id="download-oracle-java-rpm-temporary-workaround">Download Oracle Java RPM (Temporary workaround)</h3>
+
+<p>Download it from <a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html">here</a>
+and put it in <em>indigo-deploy/roles/java/files</em> in your admin node.</p>
+
+<h3 id="disable-firewall">Disable Firewall</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo setenforce 0
+$ sudo service firewalld stop
+</code></pre></div></div>
+
+
+    </section>
+
+    
+  </body>
+</html>
