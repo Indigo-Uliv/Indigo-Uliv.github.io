@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+
+<!-- Begin Jekyll SEO tag v2.3.0 -->
+<title>Admin Command Line Interface | Indigo Documentation</title>
+<meta property="og:title" content="Admin Command Line Interface" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="http://localhost:4000/usage/admin-cli.html" />
+<meta property="og:url" content="http://localhost:4000/usage/admin-cli.html" />
+<meta property="og:site_name" content="Indigo Documentation" />
+<script type="application/ld+json">
+{"name":null,"description":null,"author":null,"@type":"WebPage","url":"http://localhost:4000/usage/admin-cli.html","publisher":null,"image":null,"headline":"Admin Command Line Interface","dateModified":null,"datePublished":null,"sameAs":null,"mainEntityOfPage":null,"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#157878">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/assets/css/style.css?v=775a9e77acbd96cddb6515587568604c89615175">
+    <link rel="stylesheet" href="/assets/css/mystyle.css">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Indigo Documentation</h1>
+      <h2 class="project-tagline"></h2>
+      
+        <a href="http://github.com/Indigo-Uliv" class="btn">View on GitHub</a>
+      
+      
+    </section>
+
+    <section class="main-content">
+      <h1 id="admin-command-line-interface">Admin Command Line Interface</h1>
+
+<h2 id="presentation">Presentation</h2>
+
+<p>When installed, the Indigo lib provides a minimal set of commands
+that can be used to configure the system. They have to be executed
+on an installed Indigo node.</p>
+
+<h2 id="commands">Commands</h2>
+
+<h3 id="initialise-cassandra">Initialise Cassandra</h3>
+
+<p>This command has to be executed once to set up the keyspace and the tables in
+Cassandra.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ iadmin create
+</code></pre></div></div>
+
+<h3 id="create-a-user">Create a user</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ iadmin mkuser &lt;username&gt;
+</code></pre></div></div>
+
+<h3 id="list-existing-users">List existing users</h3>
+
+<ul>
+  <li>List all users</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ iadmin lu
+</code></pre></div></div>
+
+<ul>
+  <li>Display information on a specific user</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ iadmin lu &lt;username&gt;
+</code></pre></div></div>
+
+<h3 id="modify-a-user">Modify a user</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ iadmin moduser &lt;username&gt; (email | administrator | active | password) [&lt;value&gt;]
+</code></pre></div></div>
+
+<p>For instance to change the email of the user user10</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ iadmin moduser user10 email user10@indigo.com
+</code></pre></div></div>
+
+<h3 id="remove-a-user">Remove a user</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ iadmin rmuser &lt;username&gt;
+</code></pre></div></div>
+
+<h3 id="create-a-group">Create a group</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ iadmin mkgroup &lt;groupname&gt;
+</code></pre></div></div>
+
+<h3 id="list-existing-groups">List existing groups</h3>
+
+<ul>
+  <li>List all groups</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ iadmin lg
+</code></pre></div></div>
+
+<ul>
+  <li>Display information on a specific group</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ iadmin lg &lt;groupname&gt;
+</code></pre></div></div>
+
+<h3 id="add-users-to-a-group">Add user(s) to a group</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ iadmin atg &lt;groupname&gt; &lt;userlist&gt; ...
+</code></pre></div></div>
+
+<h3 id="remove-users-from-a-group">Remove user(s) from a group</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ iadmin rfg &lt;groupname&gt; &lt;userlist&gt; ...
+</code></pre></div></div>
+
+<h3 id="remove-a-group">Remove a group</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ iadmin rmgroup &lt;groupname&gt;
+</code></pre></div></div>
+
+
+    </section>
+
+    
+  </body>
+</html>

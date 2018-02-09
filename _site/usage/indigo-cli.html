@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+
+<!-- Begin Jekyll SEO tag v2.3.0 -->
+<title>Indigo Command Line Interface | Indigo Documentation</title>
+<meta property="og:title" content="Indigo Command Line Interface" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="http://localhost:4000/usage/indigo-cli.html" />
+<meta property="og:url" content="http://localhost:4000/usage/indigo-cli.html" />
+<meta property="og:site_name" content="Indigo Documentation" />
+<script type="application/ld+json">
+{"name":null,"description":null,"author":null,"@type":"WebPage","url":"http://localhost:4000/usage/indigo-cli.html","publisher":null,"image":null,"headline":"Indigo Command Line Interface","dateModified":null,"datePublished":null,"sameAs":null,"mainEntityOfPage":null,"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#157878">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/assets/css/style.css?v=775a9e77acbd96cddb6515587568604c89615175">
+    <link rel="stylesheet" href="/assets/css/mystyle.css">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Indigo Documentation</h1>
+      <h2 class="project-tagline"></h2>
+      
+        <a href="http://github.com/Indigo-Uliv" class="btn">View on GitHub</a>
+      
+      
+    </section>
+
+    <section class="main-content">
+      <h1 id="indigo-command-line-interface">Indigo Command Line Interface</h1>
+
+<h2 id="presentation">Presentation</h2>
+
+<p>The <a href="https://github.com/Indigo-Uliv/indigo-cli">Indigo Command Line Interface</a>
+is a client project written in Python that can be installed on any machine. It accesses an Indigo cluster through its RESTful APIs (CDMI and Admin interface).</p>
+
+<h2 id="installation">Installation</h2>
+
+<h3 id="create-and-activate-a-virtual-environment">Create And Activate A Virtual Environment</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ virtualenv ~/ve/indigo/cli-1.2
+...
+$ source ~/ve/indigo/cli-1.2/bin/activate
+</code></pre></div></div>
+
+<h3 id="clone-the-indigo-cli-project">Clone the indigo-cli project</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git clone https://github.com/Indigo-Uliv/indigo-cli.git
+$ cd indigo-cli
+</code></pre></div></div>
+
+<h3 id="install-dependencies">Install Dependencies</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ pip install -r requirements.txt
+</code></pre></div></div>
+
+<h3 id="install-indigo-client">Install Indigo Client</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ pip install -e .
+</code></pre></div></div>
+
+<h3 id="detailed-osx-install--commands">Detailed OSX install  commands</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo easy_install virtualenv      # virtualenv installs pip
+$ python -m virtualenv ~/ve/indigoclient-1.2
+$ source ~/ve/indigoclient-1.2/bin/activate
+$ pip install -r requirements.txt
+$ pip install -e .
+</code></pre></div></div>
+
+<h2 id="usage">Usage</h2>
+
+<p>Don’t forget to activate the virtual environment which has been created during
+install. It will provide the <em><strong>indigo</strong></em> command.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ source ~/ve/indigo/cli-1.2/bin/activate
+</code></pre></div></div>
+
+<h2 id="commands">Commands</h2>
+
+<h3 id="connection">Connection</h3>
+
+<ul>
+  <li>Connect to an Indigo Cluster as an anonymous user</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ indigo init --url=http://indigo.example.com
+</code></pre></div></div>
+
+<ul>
+  <li>Connect to an Indigo Cluster as a registered user</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ indigo init --url=http://indigo.example.com --username=USER [--password=PASS]
+</code></pre></div></div>
+
+<ul>
+  <li>Disconnect from the cluster</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ indigo exit
+</code></pre></div></div>
+
+<ul>
+  <li>Show current authenticated user</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ indigo whoami
+</code></pre></div></div>
+
+<h3 id="manage-collections-and-data-objects">Manage Collections and Data Objects</h3>
+
+<ul>
+  <li>Show current working container</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ indigo pwd
+</code></pre></div></div>
+
+<ul>
+  <li>List a container</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ indigo ls &lt;path&gt;
+</code></pre></div></div>
+
+<ul>
+  <li>List a container with ACL information</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ indigo ls -a &lt;path&gt;
+</code></pre></div></div>
+
+<ul>
+  <li>Move to a new container</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ indigo cd &lt;path&gt;
+</code></pre></div></div>
+
+<ul>
+  <li>Move to the parent container</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ indigo cd ..
+</code></pre></div></div>
+
+<ul>
+  <li>Create a new container</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ indigo mkdir &lt;path&gt;
+</code></pre></div></div>
+
+<ul>
+  <li>Put a local file</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ indigo put &lt;src&gt; [&lt;dst&gt;]
+</code></pre></div></div>
+
+<ul>
+  <li>Create a reference object</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ indigo put --ref &lt;url&gt; &lt;dest&gt;
+</code></pre></div></div>
+
+<ul>
+  <li>Provide the MIME type of the object (if not supplied
+<code class="highlighter-rouge">indigo put</code> will attempt to guess)</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ indigo put --mimetype="text/plain" &lt;src&gt;
+</code></pre></div></div>
+
+<ul>
+  <li>Fetch a data object from the archive to a local file</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ indigo get [--force] &lt;src&gt; [&lt;dst&gt;]
+</code></pre></div></div>
+
+<ul>
+  <li>Get the CDMI json dict for an object or a container</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ indigo cdmi &lt;path&gt;
+</code></pre></div></div>
+
+<ul>
+  <li>Remove an object or a container</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ indigo rm &lt;src&gt;
+</code></pre></div></div>
+
+<ul>
+  <li>Add or modify an ACL to an object or a container</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ indigo chmod &lt;path&gt; (read|write|null) &lt;group&gt;
+</code></pre></div></div>
+
+<h3 id="manage-metadata">Manage Metadata</h3>
+
+<ul>
+  <li>Set (overwrite) a metadata value for a field</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ indigo meta set &lt;path&gt; "org.dublincore.creator" "S M Body"
+$ indigo meta set . "org.dublincore.title" "My Collection"
+</code></pre></div></div>
+
+<ul>
+  <li>Add another value to an existing metadata field</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ indigo meta add &lt;path&gt; "org.dublincore.creator" "A N Other"
+</code></pre></div></div>
+
+<p>$ List metadata values for all fields</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ indigo meta ls &lt;path&gt;
+</code></pre></div></div>
+
+<ul>
+  <li>List metadata value(s) for a specific field</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ indigo meta ls &lt;path&gt; org.dublincore.creator
+</code></pre></div></div>
+
+<ul>
+  <li>Delete a metadata field</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ indigo meta rm &lt;path&gt; "org.dublincore.creator"
+</code></pre></div></div>
+
+<ul>
+  <li>Delete a specific metadata field with a value</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ indigo meta rm &lt;path&gt; "org.dublincore.creator" "A N Other"
+</code></pre></div></div>
+
+<h3 id="manage-users-and-groups">Manage Users and Groups</h3>
+
+<ul>
+  <li>Create a user</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ iadmin mkuser &lt;username&gt;
+</code></pre></div></div>
+
+<ul>
+  <li>List all users</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ iadmin lu
+</code></pre></div></div>
+
+<ul>
+  <li>Display information on a specific user</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ iadmin lu &lt;username&gt;
+</code></pre></div></div>
+
+<ul>
+  <li>Modify a user</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ iadmin moduser &lt;username&gt; (email | administrator | active | password) [&lt;value&gt;]
+</code></pre></div></div>
+
+<p>For instance to change the email of the user user10</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ iadmin moduser user10 email user10@indigo.com
+</code></pre></div></div>
+
+<ul>
+  <li>Remove a user</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ iadmin rmuser &lt;username&gt;
+</code></pre></div></div>
+
+<ul>
+  <li>Create a group</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ iadmin mkgroup &lt;groupname&gt;
+</code></pre></div></div>
+
+<ul>
+  <li>List all groups</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ iadmin lg
+</code></pre></div></div>
+
+<ul>
+  <li>Display information on a specific group</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ iadmin lg &lt;groupname&gt;
+</code></pre></div></div>
+
+<ul>
+  <li>Add user(s) to a group</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ iadmin atg &lt;groupname&gt; &lt;userlist&gt; ...
+</code></pre></div></div>
+
+<ul>
+  <li>Remove user(s) from a group</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ iadmin rfg &lt;groupname&gt; &lt;userlist&gt; ...
+</code></pre></div></div>
+
+<ul>
+  <li>Remove a group</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ iadmin rmgroup &lt;groupname&gt;
+</code></pre></div></div>
+
+
+    </section>
+
+    
+  </body>
+</html>

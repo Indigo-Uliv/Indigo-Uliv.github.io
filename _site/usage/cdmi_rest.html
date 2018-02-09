@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+
+<!-- Begin Jekyll SEO tag v2.3.0 -->
+<title>CDMI RESTful API | Indigo Documentation</title>
+<meta property="og:title" content="CDMI RESTful API" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="http://localhost:4000/usage/cdmi_rest.html" />
+<meta property="og:url" content="http://localhost:4000/usage/cdmi_rest.html" />
+<meta property="og:site_name" content="Indigo Documentation" />
+<script type="application/ld+json">
+{"name":null,"description":null,"author":null,"@type":"WebPage","url":"http://localhost:4000/usage/cdmi_rest.html","publisher":null,"image":null,"headline":"CDMI RESTful API","dateModified":null,"datePublished":null,"sameAs":null,"mainEntityOfPage":null,"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#157878">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/assets/css/style.css?v=775a9e77acbd96cddb6515587568604c89615175">
+    <link rel="stylesheet" href="/assets/css/mystyle.css">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Indigo Documentation</h1>
+      <h2 class="project-tagline"></h2>
+      
+        <a href="http://github.com/Indigo-Uliv" class="btn">View on GitHub</a>
+      
+      
+    </section>
+
+    <section class="main-content">
+      <h1 id="cdmi-restful-api">CDMI RESTful API</h1>
+
+<ul id="markdown-toc">
+  <li><a href="#cdmi-restful-api" id="markdown-toc-cdmi-restful-api">CDMI RESTful API</a>    <ul>
+      <li><a href="#presentation" id="markdown-toc-presentation">Presentation</a></li>
+      <li><a href="#cloud-data-management-interface" id="markdown-toc-cloud-data-management-interface">Cloud Data Management Interface</a></li>
+      <li><a href="#collections" id="markdown-toc-collections">Collections</a>        <ul>
+          <li><a href="#create-a-collection-using-http" id="markdown-toc-create-a-collection-using-http"><strong>Create a collection using HTTP</strong></a></li>
+          <li><a href="#create-a-collection-using-cdmi" id="markdown-toc-create-a-collection-using-cdmi"><strong>Create a collection using CDMI</strong></a></li>
+          <li><a href="#delete-a-collection-using-http" id="markdown-toc-delete-a-collection-using-http"><strong>Delete a collection using HTTP</strong></a></li>
+          <li><a href="#delete-a-collection-using-cdmi" id="markdown-toc-delete-a-collection-using-cdmi"><strong>Delete a collection using CDMI</strong></a></li>
+          <li><a href="#read-a-collection-using-cdmi" id="markdown-toc-read-a-collection-using-cdmi"><strong>Read a collection using CDMI</strong></a></li>
+          <li><a href="#update-a-collection-using-cdmi" id="markdown-toc-update-a-collection-using-cdmi"><strong>Update a collection using CDMI</strong></a></li>
+        </ul>
+      </li>
+      <li><a href="#data-objects" id="markdown-toc-data-objects">Data Objects</a>        <ul>
+          <li><a href="#create-a-data-object-using-http" id="markdown-toc-create-a-data-object-using-http"><strong>Create a data object using HTTP</strong></a></li>
+          <li><a href="#create-a-data-object-using-cdmi" id="markdown-toc-create-a-data-object-using-cdmi"><strong>Create a data object using CDMI</strong></a></li>
+          <li><a href="#delete-a-data-object-using-http" id="markdown-toc-delete-a-data-object-using-http"><strong>Delete a data object using HTTP</strong></a></li>
+          <li><a href="#delete-a-data-object-using-cdmi" id="markdown-toc-delete-a-data-object-using-cdmi"><strong>Delete a data object using CDMI</strong></a></li>
+          <li><a href="#read-a-data-object-using-http" id="markdown-toc-read-a-data-object-using-http"><strong>Read a data object using HTTP</strong></a></li>
+          <li><a href="#read-a-data-object-using-cdmi" id="markdown-toc-read-a-data-object-using-cdmi"><strong>Read a data object using CDMI</strong></a></li>
+          <li><a href="#update-a-data-object-using-http" id="markdown-toc-update-a-data-object-using-http"><strong>Update a data object using HTTP</strong></a></li>
+          <li><a href="#update-a-data-object-using-cdmi" id="markdown-toc-update-a-data-object-using-cdmi"><strong>Update a data object using CDMI</strong></a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="presentation">Presentation</h2>
+
+<p>The <a href="https://github.com/Indigo-Uliv/indigo-web">Indigo Web project</a> is a
+translation layer that provides an accessible and well structured set of access
+methods to the data management system. Access methods comes in the form of
+RESTful services, accessible via the base url of an indigo node running indigo-web.
+The object store is used to store and register digital objects in the cluster. The
+data model is that of a hierarchical object store, <em>i.e.</em> objects are chunks of
+data that are stored in selected containers and may have associated metadata in
+the form of name/value pairs. The repository is agnostic to the data and
+metadata it stores, and the interpretation of both is the responsibility of the
+various applications, interpreters and engines that use the store. The object
+store provides a CDMI implementation for HTTP access to digital objects in the
+registry. The CDMI standard is fairly well designed, and the richest of the
+available “standards”. We layer a CDMI interface to provide remote (https) based
+access to the objects and metadata.</p>
+
+<h2 id="cloud-data-management-interface">Cloud Data Management Interface</h2>
+
+<p>The object store can be used to organize collections and digital objects in the
+store. It implements the Cloud Data Management Interface (CDMI) that defines the
+functional interface that applications may use to create, retrieve, update and
+delete data elements from the Object Store (CRUD operations). In addition,
+metadata can be set on collections and their contained data elements through
+this interface.
+The CDMI web service is accessible at <em><strong>/api/cdmi</strong></em> from you root URI.</p>
+
+<h2 id="collections">Collections</h2>
+
+<h3 id="create-a-collection-using-http"><strong>Create a collection using HTTP</strong></h3>
+
+<p><em>Synopsys</em>:</p>
+
+<p>To create a new collection object, the following request shall be performed:</p>
+
+<p><code class="highlighter-rouge">PUT &lt;root URI&gt;/api/cdmi/&lt;CollectionName&gt;/&lt;NewCollectionName&gt;/</code></p>
+
+<p>where:</p>
+<ul>
+  <li><code class="highlighter-rouge">&lt;root URI&gt;</code> is the URL of the web server.</li>
+  <li><code class="highlighter-rouge">&lt;CollectionName&gt;</code> is zero or more intermediate collection that already exist, with one ‘/’ between each pair of collection names.</li>
+  <li><code class="highlighter-rouge">&lt;NewCollectionName&gt;</code> is the name for the collection to be created.</li>
+</ul>
+
+<p><em>Response Status</em>:</p>
+
+<table>
+  <tr> <th>HTTP Status</th>      <th>Description</th>                                           </tr>
+  <tr> <td>201 Created</td>      <td>The new collection was created</td>                        </tr>
+  <tr> <td>401 Unauthorized</td> <td>The authentication credentials are missing or invalid</td> </tr>
+  <tr> <td>403 Forbidden</td>    <td>The client lacks the proper authorization</td>             </tr>
+  <tr> <td>404 Not Found</td>    <td>The resource was not found at the specified URI</td>       </tr>
+</table>
+
+<p><em>Example</em>:</p>
+
+<p>PUT to the collection URI to create a collection:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PUT /api/cdmi/MyCollection/ HTTP/1.1
+Host: 192.168.12.12
+</code></pre></div></div>
+
+<p>Response:</p>
+
+<p><code class="highlighter-rouge">HTTP/1.1 201 Created</code></p>
+
+<h3 id="create-a-collection-using-cdmi"><strong>Create a collection using CDMI</strong></h3>
+
+<p><em>Synopsys</em>:</p>
+
+<p>To create a new collection object, the following request shall be performed:</p>
+
+<p><code class="highlighter-rouge">PUT &lt;root URI&gt;/api/cdmi/&lt;CollectionName&gt;/&lt;NewCollectionName&gt;/</code></p>
+
+<p>where:</p>
+<ul>
+  <li><code class="highlighter-rouge">&lt;root URI&gt;</code> is the URL of the web server.</li>
+  <li><code class="highlighter-rouge">&lt;CollectionName&gt;</code> is zero or more intermediate collection that already exist, with one ‘/’ between each pair of collection names.</li>
+  <li><code class="highlighter-rouge">&lt;NewCollectionName&gt;</code> is the name for the collection to be created.</li>
+</ul>
+
+<p><em>Request Headers</em>:</p>
+
+<table>
+  <tr> <th>Header</th>                       <th>Type</th>          <th>Description</th>                  <th>Requirement</th> </tr>
+  <tr> <td>Accept</td>                       <td>Header String</td> <td>"application/cdmi-container"</td> <td>Optional</td>    </tr>
+  <tr> <td>Content-Type</td>                 <td>Header String</td> <td>"application/cdmi-container"</td> <td>Mandatory</td>   </tr>        
+  <tr> <td>X-CDMI-Specification-Version</td> <td>Header String</td> <td>"1.1"</td>                        <td>Mandatory</td>   </tr>
+</table>
+
+<p><em>Request Body</em>:</p>
+
+<table>
+  <tr> <th>Field Name</th> <th>Type</th>        <th>Description</th>                        <th>Requirement</th> </tr>
+  <tr> <td>metadata</td>   <td>JSON Object</td> <td>Metadata for the collection object</td> <td>Optional</td>    </tr>
+</table>
+
+<p><em>Response Headers</em>:</p>
+
+<table>
+  <tr> <th>Header</th>                       <th>Type</th>          <th>Description</th>                  <th>Requirement</th> </tr>
+  <tr> <td>Content-Type</td>                 <td>Header String</td> <td>"application/cdmi-container"</td> <td>Mandatory</td>   </tr>        
+  <tr> <td>X-CDMI-Specification-Version</td> <td>Header String</td> <td>"1.1"</td>                        <td>Mandatory</td>   </tr>
+</table>
+
+<p><em>Response Body</em>:</p>
+
+<table>
+  <tr> <th>Field Name</th> <th>Type</th>        <th>Description</th>                    <th>Requirement</th> </tr>
+  <tr> <td>objectType</td> <td>JSON String</td> <td>"application/cdmi-container"</td>   <td>Mandatory</td>   </tr>
+  <tr> <td>objectID</td>   <td>JSON String</td> <td>ObjectID of the object</td>         <td>Mandatory</td>   </tr>  
+  <tr> <td>objectName</td> <td>JSON String</td> <td>Name of the object</td>             <td>Mandatory</td>   </tr>     
+  <tr> <td>parentURI</td>  <td>JSON String</td> <td>URI for the parent object</td>      <td>Mandatory</td>   </tr>    
+  <tr> <td>parentID</td>   <td>JSON String</td> <td>Object ID of the parent object</td> <td>Mandatory</td>   </tr>    
+  <tr> <td>metadata</td>   <td>JSON Object</td> <td>Metadata for the object</td>        <td>Optional</td>    </tr>     
+</table>
+
+<p><em>Response Status</em>:</p>
+
+<table>
+  <tr> <th>HTTP Status</th>      <th>Description</th>                                           </tr>
+  <tr> <td>201 Created</td>      <td>The new collection was created</td>                        </tr>
+  <tr> <td>400 Bad Request</td>  <td>The request contains invalid parameters</td>               </tr>
+  <tr> <td>401 Unauthorized</td> <td>The authentication credentials are missing or invalid</td> </tr>
+  <tr> <td>403 Forbidden</td>    <td>The client lacks the proper authorization</td>             </tr>
+  <tr> <td>404 Not Found</td>    <td>The resource was not found at the specified URI</td>       </tr>
+</table>
+
+<p><em>Example</em>:</p>
+
+<p>PUT to the URI the collection object name and metadata:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PUT /api/cdmi/MyCollection/ HTTP/1.1
+Host: 192.168.12.12
+Accept: application/cdmi-container
+Content-Type: application/cdmi-container
+X-CDMI-Specification-Version: 1.1
+
+{
+  “metadata”: {}
+}
+</code></pre></div></div>
+
+<p>Response:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>HTTP/1.1 201 Created
+Content-Type: application/cdmi-container
+X-CDMI-Specification-Version: 1.1
+
+{
+  "objectType" : "application/cdmi-container",
+  "objectID" : "00007ED900104E1D14771DC67C27BF8B",
+  "objectName" : "MyCollection/",  
+  "parentURI" : "/",
+  "parentID" : "00007E7F0010128E42D87EE34F5A6560",
+  "metadata" : {
+                ...
+               },
+}
+</code></pre></div></div>
+
+<h3 id="delete-a-collection-using-http"><strong>Delete a collection using HTTP</strong></h3>
+
+<p><em>Synopsys</em>:</p>
+
+<p>To delete an existing container object, including all contained children,
+  the following request shall be performed:</p>
+
+<p><code class="highlighter-rouge">DELETE &lt;root URI&gt;/api/cdmi/&lt;CollectionName&gt;/&lt;TheCollectionName&gt;/</code></p>
+
+<p>where:</p>
+<ul>
+  <li><code class="highlighter-rouge">&lt;root URI&gt;</code> is the URL of the web server.</li>
+  <li><code class="highlighter-rouge">&lt;CollectionName&gt;</code> is zero or more intermediate collection objects.</li>
+  <li><code class="highlighter-rouge">&lt;TheCollectionName&gt;</code> is the name for the collection to be deleted.</li>
+</ul>
+
+<p><em>Response Status</em>:</p>
+
+<table>
+  <tr> <th>HTTP Status</th>      <th>Description</th>                                           </tr>
+  <tr> <td>204 No Content</td>   <td>The collection was deleted</td>                            </tr>
+  <tr> <td>401 Unauthorized</td> <td>The authentication credentials are missing or invalid</td> </tr>
+  <tr> <td>403 Forbidden</td>    <td>The client lacks the proper authorization</td>             </tr>
+  <tr> <td>404 Not Found</td>    <td>The resource was not found at the specified URI</td>       </tr>
+</table>
+
+<p><em>Example</em>:</p>
+
+<p>DELETE to the collection URI:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>DELETE /api/cdmi/MyCollection/ HTTP/1.1
+Host: 192.168.12.12
+</code></pre></div></div>
+
+<p>Response:</p>
+
+<p><code class="highlighter-rouge">HTTP/1.1 204 No Content</code></p>
+
+<h3 id="delete-a-collection-using-cdmi"><strong>Delete a collection using CDMI</strong></h3>
+
+<p><em>Synopsys</em>:</p>
+
+<p>To delete an existing container object, including all contained children,
+  the following request shall be performed:</p>
+
+<p><code class="highlighter-rouge">DELETE &lt;root URI&gt;/api/cdmi/&lt;CollectionName&gt;/&lt;NewCollectionName&gt;/</code></p>
+
+<p>where:</p>
+<ul>
+  <li><code class="highlighter-rouge">&lt;root URI&gt;</code> is the URL of the web server.</li>
+  <li><code class="highlighter-rouge">&lt;CollectionName&gt;</code> is zero or more intermediate collection names.</li>
+  <li><code class="highlighter-rouge">&lt;TheCollectionName&gt;</code> is the name for the collection to be deleted.</li>
+</ul>
+
+<p><em>Request Headers</em>:</p>
+
+<table>
+  <tr> <th>Header</th>                       <th>Type</th>          <th>Description</th>                  <th>Requirement</th> </tr>   
+  <tr> <td>X-CDMI-Specification-Version</td> <td>Header String</td> <td>"1.1"</td>                        <td>Mandatory</td>   </tr>
+</table>
+
+<p><em>Response Status</em>:</p>
+
+<table>
+  <tr> <th>HTTP Status</th>      <th>Description</th>                                           </tr>
+  <tr> <td>204 No Content</td>   <td>The collection was deleted</td>                            </tr>
+  <tr> <td>401 Unauthorized</td> <td>The authentication credentials are missing or invalid</td> </tr>
+  <tr> <td>403 Forbidden</td>    <td>The client lacks the proper authorization</td>             </tr>
+  <tr> <td>404 Not Found</td>    <td>The resource was not found at the specified URI</td>       </tr>
+</table>
+
+<p><em>Example</em>:</p>
+
+<p>DELETE the collection at URI:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>DELETE /api/cdmi/MyCollection/ HTTP/1.1
+Host: 192.168.12.12
+X-CDMI-Specification-Version: 1.1
+</code></pre></div></div>
+
+<p>Response:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>HTTP/1.1 204 No Content
+</code></pre></div></div>
+
+<h3 id="read-a-collection-using-cdmi"><strong>Read a collection using CDMI</strong></h3>
+
+<p><em>Synopsys</em>:</p>
+
+<p>To read all fields from an existing collection object, the following request
+  shall be performed:</p>
+
+<p><code class="highlighter-rouge">GET &lt;root URI&gt;/api/cdmi/&lt;CollectionName&gt;/&lt;TheCollectionName&gt;/</code></p>
+
+<p>where:</p>
+<ul>
+  <li><code class="highlighter-rouge">&lt;root URI&gt;</code> is the URL of the web server.</li>
+  <li><code class="highlighter-rouge">&lt;CollectionName&gt;</code> is zero or more intermediate collection objects.</li>
+  <li><code class="highlighter-rouge">&lt;TheCollectionName&gt;</code> is the name specified for the collection object to be read from.</li>
+</ul>
+
+<p><em>Request Headers</em>:</p>
+
+<table>
+  <tr> <th>Header</th>                       <th>Type</th>          <th>Description</th>                  <th>Requirement</th> </tr>
+  <tr> <td>Accept</td>                       <td>Header String</td> <td>"application/cdmi-container"</td> <td>Optional</td>    </tr>     
+  <tr> <td>X-CDMI-Specification-Version</td> <td>Header String</td> <td>"1.1"</td>                        <td>Mandatory</td>   </tr>
+</table>
+
+<p><em>Response Body</em>:</p>
+
+<table>
+  <tr> <th>Field Name</th> <th>Type</th>                 <th>Description</th>                                                  <th>Requirement</th> </tr>
+  <tr> <td>objectType</td> <td>JSON String</td>          <td>"application/cdmi-container"</td>                                 <td>Mandatory</td>   </tr>
+  <tr> <td>objectID</td>   <td>JSON String</td>          <td>ObjectID of the object</td>                                       <td>Mandatory</td>   </tr>  
+  <tr> <td>objectName</td> <td>JSON String</td>          <td>Name of the object</td>                                           <td>Mandatory</td>   </tr>     
+  <tr> <td>parentURI</td>  <td>JSON String</td>          <td>URI for the parent object</td>                                    <td>Mandatory</td>   </tr>    
+  <tr> <td>parentID</td>   <td>JSON String</td>          <td>Object ID of the parent object</td>                               <td>Mandatory</td>   </tr>    
+  <tr> <td>metadata</td>   <td>JSON Object</td>          <td>Metadata for the object</td>                                      <td>Optional</td>    </tr>  
+  <tr> <td>children</td>   <td>JSON Array of JSON Strings</td> <td>Name of the children objects in the collection object.</td> <td>Mandatory</td>   </tr>      
+</table>
+
+<p><em>Response Status</em>:</p>
+
+<table>
+  <tr> <th>HTTP Status</th>      <th>Description</th>                                                     </tr>
+  <tr> <td>200 OK</td>           <td>The metadata for the collection is provided in the Body</td> </tr>
+  <tr> <td>400 Bad Request</td>  <td>The request contains invalid parameters</td>                         </tr>
+  <tr> <td>401 Unauthorized</td> <td>The authentication credentials are missing or invalid</td>           </tr>
+  <tr> <td>403 Forbidden</td>    <td>The client lacks the proper authorization</td>                       </tr>
+  <tr> <td>404 Not Found</td>    <td>The resource was not found at the specified URI</td>                 </tr>
+</table>
+
+<p><em>Example</em>:</p>
+
+<p>GET to the collection object URI to read all the fields of the collection object:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>GET /api/cdmi/MyCollection/ HTTP/1.1
+Host: 192.168.12.12
+Accept: application/cdmi-container
+X-CDMI-Specification-Version: 1.1
+</code></pre></div></div>
+
+<p>Response:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>HTTP/1.1 200 OK
+Content-Type: application/cdmi-container
+X-CDMI-Specification-Version: 1.1
+
+{
+  "objectType" : "application/cdmi-container",
+  "objectID" : "00007ED900104E1D14771DC67C27BF8B",
+  "objectName" : "MyCollection/",  
+  "parentURI" : "/",
+  "parentID" : "00007E7F0010128E42D87EE34F5A6560",
+  "metadata" : {
+                ...
+               },
+  "children" : [
+               "child1",
+               “child2”,
+               …
+               ]
+}
+</code></pre></div></div>
+
+<h3 id="update-a-collection-using-cdmi"><strong>Update a collection using CDMI</strong></h3>
+
+<p><em>Synopsys</em>:</p>
+
+<p>To update some or all fields in an existing collection object, the following
+  request shall be performed:</p>
+
+<p><code class="highlighter-rouge">PUT &lt;root URI&gt;/api/cdmi/&lt;CollectionName&gt;/&lt;TheCollectionName&gt;/</code></p>
+
+<p>To add, update, and remove specific metadata items of an existing collection
+  object, the following request shall be performed:</p>
+
+<p><code class="highlighter-rouge">PUT &lt;root URI&gt;/api/cdmi/&lt;CollectionName&gt;/&lt;TheCollectionName&gt;/?metadata:&lt;metadataname&gt;</code></p>
+
+<p>where:</p>
+<ul>
+  <li><code class="highlighter-rouge">&lt;root URI&gt;</code> is the URL of the web server.</li>
+  <li><code class="highlighter-rouge">&lt;CollectionName&gt;</code> is zero or more intermediate collectionobjects.</li>
+  <li><code class="highlighter-rouge">&lt;TheCollectionName&gt;</code> is the name for the collection to be updated.</li>
+</ul>
+
+<p><em>Request Headers</em>:</p>
+
+<table>
+  <tr> <th>Header</th>                       <th>Type</th>          <th>Description</th>                  <th>Requirement</th> </tr>
+  <tr> <td>Accept</td>                       <td>Header String</td> <td>"application/cdmi-container"</td> <td>Optional</td>    </tr>       
+  <tr> <td>X-CDMI-Specification-Version</td> <td>Header String</td> <td>"1.1"</td>                        <td>Mandatory</td>   </tr>
+</table>
+
+<p><em>Request Body</em>:</p>
+
+<table>
+  <tr> <th>Field Name</th> <th>Type</th>        <th>Description</th>                        <th>Requirement</th> </tr>
+  <tr> <td>metadata</td>   <td>JSON Object</td> <td>Metadata for the collection object</td> <td>Optional</td>    </tr>
+</table>
+
+<p><em>Response Status</em>:</p>
+
+<table>
+  <tr> <th>HTTP Status</th>      <th>Description</th>                                           </tr>
+  <tr> <td>204 No Content</td>   <td>The collection content was updated</td>                    </tr>
+  <tr> <td>400 Bad Request</td>  <td>The request contains invalid parameters</td>               </tr>
+  <tr> <td>401 Unauthorized</td> <td>The authentication credentials are missing or invalid</td> </tr>
+  <tr> <td>403 Forbidden</td>    <td>The client lacks the proper authorization</td>             </tr>
+  <tr> <td>404 Not Found</td>    <td>The resource was not found at the specified URI</td>       </tr>
+</table>
+
+<p><em>Example</em>:</p>
+
+<p>PUT to the URI the collection object to set new metadata:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PUT /api/cdmi/MyCollection/ HTTP/1.1
+Host: 192.168.12.12
+Content-Type: application/cdmi-container
+X-CDMI-Specification-Version: 1.1
+
+{
+  “metadata”: {}
+}
+</code></pre></div></div>
+
+<p>Response:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>HTTP/1.1 204 No Content
+</code></pre></div></div>
+
+<h2 id="data-objects">Data Objects</h2>
+
+<h3 id="create-a-data-object-using-http"><strong>Create a data object using HTTP</strong></h3>
+
+<p><em>Synopsys</em>:</p>
+
+<p>The following HTTP PUT creates a new data object at the specified URI:</p>
+
+<p><code class="highlighter-rouge">PUT &lt;root URI&gt;/api/cdmi/&lt;CollectionName&gt;/&lt;DataObjectName&gt;</code></p>
+
+<p>where:</p>
+<ul>
+  <li><code class="highlighter-rouge">&lt;root URI&gt;</code> is the URL of the web server.</li>
+  <li><code class="highlighter-rouge">&lt;CollectionName&gt;</code> is zero or more intermediate collection that already exist.</li>
+  <li><code class="highlighter-rouge">&lt;DataObjectName&gt;</code> is the name for the data object to be created.</li>
+</ul>
+
+<p><em>Request Headers</em>:</p>
+
+<table>
+  <tr> <th>Header</th>        <th>Type</th>          <th>Description</th>                                                <th>Requirement</th> </tr>
+  <tr> <td>Content-Type</td>  <td>Header String</td> <td>The content type of the data to be stored as a data object</td> <td>Optional</td>    </tr>     
+  <tr> <td>Content-Range</td> <td>Header String</td> <td>A valid range-specifier</td>                                    <td>Optional</td>   </tr>
+</table>
+
+<p><em>Request Body</em>:</p>
+
+<p>The request Body contains the data to be stored.</p>
+
+<p><em>Response Status</em>:</p>
+
+<table>
+  <tr> <th>HTTP Status</th>      <th>Description</th>                                           </tr>
+  <tr> <td>201 Created</td>      <td>The new data object was created</td>                       </tr>
+  <tr> <td>401 Unauthorized</td> <td>The authentication credentials are missing or invalid</td> </tr>
+  <tr> <td>403 Forbidden</td>    <td>The client lacks the proper authorization</td>             </tr>
+  <tr> <td>404 Not Found</td>    <td>The resource was not found at the specified URI</td>       </tr>
+</table>
+
+<p><em>Example</em>:</p>
+
+<p>PUT to the collection URI the data object name and contents:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PUT /api/cdmi/MyCollection/MyDataObject.txt HTTP/1.1
+Host: 192.168.12.12
+Content-Type: text/plain;charset=utf-8
+Content-Length: 37
+
+This is the Value of this Data Object
+</code></pre></div></div>
+
+<p>Response:</p>
+
+<p><code class="highlighter-rouge">HTTP/1.1 201 Created</code></p>
+
+<h3 id="create-a-data-object-using-cdmi"><strong>Create a data object using CDMI</strong></h3>
+
+<p><em>Synopsys</em>:</p>
+
+<p>To create a new data object, the following request shall be performed:</p>
+
+<p><code class="highlighter-rouge">PUT &lt;root URI&gt;/api/cdmi/&lt;CollectionName&gt;/&lt;DataObjectName&gt;/</code></p>
+
+<p>where:</p>
+<ul>
+  <li><code class="highlighter-rouge">&lt;root URI&gt;</code> is the URL of the web server.</li>
+  <li><code class="highlighter-rouge">&lt;CollectionName&gt;</code> is zero or more intermediate collection that already exist, with one ‘/’ between each pair of collection names.</li>
+  <li><code class="highlighter-rouge">&lt;DataObjectName&gt;</code> is the name for the data object to be created.</li>
+</ul>
+
+<p><em>Request Headers</em>:</p>
+
+<table>
+  <tr> <th>Header</th>                       <th>Type</th>          <th>Description</th>               <th>Requirement</th> </tr>
+  <tr> <td>Accept</td>                       <td>Header String</td> <td>"application/cdmi-object"</td> <td>Optional</td>    </tr>
+  <tr> <td>Content-Type</td>                 <td>Header String</td> <td>"application/cdmi-object"</td> <td>Mandatory</td>   </tr>        
+  <tr> <td>X-CDMI-Specification-Version</td> <td>Header String</td> <td>"1.1"</td>                     <td>Mandatory</td>   </tr>
+</table>
+
+<p><em>Request Body</em>:</p>
+
+<table>
+  <tr> <th>Field Name</th> <th>Type</th>        <th>Description</th>                                            <th>Requirement</th> </tr>
+  <tr> <td>mimetype</td>   <td>JSON String</td> <td>Mime type of the data contained within the value field</td> <td>Optional</td>    </tr>
+  <tr> <td>metadata</td>   <td>JSON Object</td> <td>Metadata for the collection object</td>                     <td>Optional</td>    </tr>
+  <tr> <td>value</td>      <td>JSON String</td> <td>The data object value</td>                                  <td>Optional</td>    </tr>
+</table>
+
+<p><em>Response Headers</em>:</p>
+
+<table>
+  <tr> <th>Header</th>                       <th>Type</th>          <th>Description</th>               <th>Requirement</th> </tr>
+  <tr> <td>Content-Type</td>                 <td>Header String</td> <td>"application/cdmi-object"</td> <td>Mandatory</td>   </tr>        
+  <tr> <td>X-CDMI-Specification-Version</td> <td>Header String</td> <td>"1.1"</td>                     <td>Mandatory</td>   </tr>
+</table>
+
+<p><em>Response Body</em>:</p>
+
+<table>
+  <tr> <th>Field Name</th> <th>Type</th>        <th>Description</th>                               <th>Requirement</th> </tr>
+  <tr> <td>objectType</td> <td>JSON String</td> <td>"application/cdmi-container"</td>              <td>Mandatory</td>   </tr>
+  <tr> <td>objectID</td>   <td>JSON String</td> <td>ObjectID of the object</td>                    <td>Mandatory</td>   </tr>  
+  <tr> <td>objectName</td> <td>JSON String</td> <td>Name of the object</td>                        <td>Mandatory</td>   </tr>     
+  <tr> <td>parentURI</td>  <td>JSON String</td> <td>URI for the parent object</td>                 <td>Mandatory</td>   </tr>    
+  <tr> <td>parentID</td>   <td>JSON String</td> <td>Object ID of the parent object</td>            <td>Mandatory</td>   </tr>   
+  <tr> <td>mimetype</td>   <td>JSON String</td> <td>Mime type of the value of the data object</td> <td>Optional</td>    </tr>
+  <tr> <td>metadata</td>   <td>JSON Object</td> <td>Metadata for the object</td>                   <td>Optional</td>    </tr>     
+</table>
+
+<p><em>Response Status</em>:</p>
+
+<table>
+  <tr> <th>HTTP Status</th>      <th>Description</th>                                           </tr>
+  <tr> <td>201 Created</td>      <td>The new data object was created</td>                       </tr>
+  <tr> <td>400 Bad Request</td>  <td>The request contains invalid parameters</td>               </tr>
+  <tr> <td>401 Unauthorized</td> <td>The authentication credentials are missing or invalid</td> </tr>
+  <tr> <td>403 Forbidden</td>    <td>The client lacks the proper authorization</td>             </tr>
+  <tr> <td>404 Not Found</td>    <td>The resource was not found at the specified URI</td>       </tr>
+</table>
+
+<p><em>Example</em>:</p>
+
+<p>PUT to the collection URI the data object name and contents:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PUT /api/cdmi/MyCollection/MyDataObject.txt HTTP/1.1
+Host: 192.168.12.12
+Accept: application/cdmi-object
+Content-Type: application/cdmi-object
+X-CDMI-Specification-Version: 1.1
+
+{
+  "mimetype" : "text/plain",
+  "metadata": {...},
+  "value" : "This is the Value of this Data Object"
+}
+</code></pre></div></div>
+
+<p>Response:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>HTTP/1.1 201 Created
+Content-Type: application/cdmi-object
+X-CDMI-Specification-Version: 1.1
+
+{
+  "objectType" : "application/cdmi-container",
+  "objectID" : "00007ED90010D891022876A8DE0BC0FD",
+  "objectName" : "MyDataObject.txt",  
+  "parentURI" : "/MyContainer/",
+  "parentID" : "00007E7F00102E230ED82694DAA975D2",
+  "mimetype" : "text/plain",
+  "metadata" : {
+                "cdmi_size" : "37"
+               },
+}
+</code></pre></div></div>
+
+<h3 id="delete-a-data-object-using-http"><strong>Delete a data object using HTTP</strong></h3>
+
+<p><em>Synopsys</em>:</p>
+
+<p>The following HTTP DELETE deletes an existing data object at the specified URI:</p>
+
+<p><code class="highlighter-rouge">DELETE &lt;root URI&gt;/api/cdmi/&lt;CollectionName&gt;/&lt;DataObjectName&gt;</code></p>
+
+<p>where:</p>
+<ul>
+  <li><code class="highlighter-rouge">&lt;root URI&gt;</code> is the URL of the web server.</li>
+  <li><code class="highlighter-rouge">&lt;CollectionName&gt;</code> is zero or more intermediate collection objects.</li>
+  <li><code class="highlighter-rouge">&lt;DataObjectName&gt;</code> is the name of the data object to be deleted.</li>
+</ul>
+
+<p><em>Response Status</em>:</p>
+
+<table>
+  <tr> <th>HTTP Status</th>      <th>Description</th>                                           </tr>
+  <tr> <td>204 No Content</td>   <td>The data object was deleted</td>                           </tr>
+  <tr> <td>401 Unauthorized</td> <td>The authentication credentials are missing or invalid</td> </tr>
+  <tr> <td>403 Forbidden</td>    <td>The client lacks the proper authorization</td>             </tr>
+  <tr> <td>404 Not Found</td>    <td>The resource was not found at the specified URI</td>       </tr>
+</table>
+
+<p><em>Example</em>:</p>
+
+<p>DELETE to the data object URI:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>DELETE /api/cdmi/MyCollection/MyDataObject.txt HTTP/1.1
+Host: 192.168.12.12
+</code></pre></div></div>
+
+<p>Response:</p>
+
+<p><code class="highlighter-rouge">HTTP/1.1 204 No Content</code></p>
+
+<h3 id="delete-a-data-object-using-cdmi"><strong>Delete a data object using CDMI</strong></h3>
+
+<p><em>Synopsys</em>:</p>
+
+<p>The following HTTP DELETE deletes an existing data object at the specified URI:</p>
+
+<p><code class="highlighter-rouge">DELETE &lt;root URI&gt;/api/cdmi/&lt;CollectionName&gt;/&lt;DataObjectName&gt;</code></p>
+
+<p>where:</p>
+<ul>
+  <li><code class="highlighter-rouge">&lt;root URI&gt;</code> is the URL of the web server.</li>
+  <li><code class="highlighter-rouge">&lt;CollectionName&gt;</code> is zero or more intermediate collection names.</li>
+  <li><code class="highlighter-rouge">&lt;DataObjectName&gt;</code> is the name of the data object to be deleted.</li>
+</ul>
+
+<p><em>Request Headers</em>:</p>
+
+<table>
+  <tr> <th>Header</th>                       <th>Type</th>          <th>Description</th>                  <th>Requirement</th> </tr>   
+  <tr> <td>X-CDMI-Specification-Version</td> <td>Header String</td> <td>"1.1"</td>                        <td>Mandatory</td>   </tr>
+</table>
+
+<p><em>Response Status</em>:</p>
+
+<table>
+  <tr> <th>HTTP Status</th>      <th>Description</th>                                           </tr>
+  <tr> <td>204 No Content</td>   <td>The collection was deleted</td>                            </tr>
+  <tr> <td>400 Bad Request</td>  <td>The request contains invalid parameters</td>               </tr>
+  <tr> <td>401 Unauthorized</td> <td>The authentication credentials are missing or invalid</td> </tr>
+  <tr> <td>403 Forbidden</td>    <td>The client lacks the proper authorization</td>             </tr>
+  <tr> <td>404 Not Found</td>    <td>The resource was not found at the specified URI</td>       </tr>
+</table>
+
+<p><em>Example</em>:</p>
+
+<p>DELETE the data object at URI:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>DELETE /api/cdmi/MyCollection/MyDataObject.txt HTTP/1.1
+Host: 192.168.12.12
+X-CDMI-Specification-Version: 1.1
+</code></pre></div></div>
+
+<p>Response:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>HTTP/1.1 204 No Content
+</code></pre></div></div>
+
+<h3 id="read-a-data-object-using-http"><strong>Read a data object using HTTP</strong></h3>
+
+<p><em>Synopsys</em>:</p>
+
+<p>The following HTTP GET reads from an existing data object at the specified URI:</p>
+
+<p><code class="highlighter-rouge">GET &lt;root URI&gt;/api/cdmi/&lt;CollectionName&gt;/&lt;DataObjectName&gt;</code></p>
+
+<p>where:</p>
+<ul>
+  <li><code class="highlighter-rouge">&lt;root URI&gt;</code> is the URL of the web server.</li>
+  <li><code class="highlighter-rouge">&lt;CollectionName&gt;</code> is zero or more intermediate collection objects.</li>
+  <li><code class="highlighter-rouge">&lt;DataObjectName&gt;</code> is the name specified of the data object to be read from.</li>
+</ul>
+
+<p><em>Request Headers</em>:</p>
+
+<table>
+  <tr> <th>Header</th> <th>Type</th>          <th>Description</th>             <th>Requirement</th> </tr>
+  <tr> <td>Range</td>  <td>Header String</td> <td>A valid range specifier</td> <td>Optional</td>    </tr>   
+</table>
+
+<p><em>Response Headers</em>:</p>
+
+<table>
+  <tr> <th>Header</th>       <th>Type</th>          <th>Description</th>                     <th>Requirement</th> </tr>
+  <tr> <td>Content-Type</td> <td>Header String</td> <td>The mimetype of the data object</td> <td>Mandatory</td>   </tr>  
+</table>
+
+<p><em>Response Body</em>:</p>
+
+<p>The response Body is the content of the data object.</p>
+
+<p><em>Response Status</em>:</p>
+
+<table>
+  <tr> <th>HTTP Status</th>         <th>Description</th>                                           </tr>
+  <tr> <td>200 OK</td>              <td>The data object content was returned in the response</td>  </tr>
+  <tr> <td>206 Partial Content</td> <td>The data object content was returned in the response</td>  </tr>
+  <tr> <td>401 Unauthorized</td>    <td>The authentication credentials are missing or invalid</td> </tr>
+  <tr> <td>403 Forbidden</td>       <td>The client lacks the proper authorization</td>             </tr>
+  <tr> <td>404 Not Found</td>       <td>The resource was not found at the specified URI</td>       </tr>
+</table>
+
+<p><em>Example 1</em>:</p>
+
+<p>GET to the data object URI to read the value of the data object:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>GET /api/cdmi/MyCollection/MyDataObject.txt HTTP/1.1
+Host: 192.168.12.12
+</code></pre></div></div>
+
+<p>Response:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>HTTP/1.1 200 OK
+Content-Type: text/plain
+Content-Length: 37
+
+This is the Value of this Data Object
+</code></pre></div></div>
+
+<p><em>Example 2</em>:</p>
+
+<p>GET to the data object URI to read the first 11 bytes of the value of the data object:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>GET /api/cdmi/MyCollection/MyDataObject.txt HTTP/1.1
+Host: 192.168.12.12
+Range: bytes=0-10
+</code></pre></div></div>
+
+<p>Response:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>HTTP/1.1 206 Partial Content
+Content-Type: text/plain
+Content-Range: bytes 0-10/37
+Content-Length: 11
+
+This is the
+</code></pre></div></div>
+
+<h3 id="read-a-data-object-using-cdmi"><strong>Read a data object using CDMI</strong></h3>
+
+<p><em>Synopsys</em>:</p>
+
+<p>The following HTTP GET reads from an existing data object at the specified URI:</p>
+
+<p><code class="highlighter-rouge">GET &lt;root URI&gt;/api/cdmi/&lt;CollectionName&gt;/&lt;DataObjectName&gt;</code></p>
+
+<p><code class="highlighter-rouge">GET &lt;root URI&gt;/api/cdmi/&lt;CollectionName&gt;/&lt;DataObjectName&gt;?value:&lt;range&gt;;...</code></p>
+
+<p><code class="highlighter-rouge">GET &lt;root URI&gt;/api/cdmi/&lt;CollectionName&gt;/&lt;DataObjectName&gt;?metadata:&lt;prefix&gt;;...</code></p>
+
+<p>where:</p>
+<ul>
+  <li><code class="highlighter-rouge">&lt;root URI&gt;</code> is the URL of the web server.</li>
+  <li><code class="highlighter-rouge">&lt;CollectionName&gt;</code> is zero or more intermediate collection objects.</li>
+  <li><code class="highlighter-rouge">&lt;DataObjectName&gt;</code> is the name specified for the data object to be read from.</li>
+  <li><code class="highlighter-rouge">&lt;range&gt;</code> is a byte range of the data object value to be returned in the value field.</li>
+  <li><code class="highlighter-rouge">&lt;prefix&gt;</code> is a matching prefix that returns all metadata items that start with the prefix value.</li>
+</ul>
+
+<p><em>Request Headers</em>:</p>
+
+<table>
+  <tr> <th>Header</th>                       <th>Type</th>          <th>Description</th>               <th>Requirement</th> </tr>
+  <tr> <td>Accept</td>                       <td>Header String</td> <td>"application/cdmi-object"</td> <td>Optional</td>    </tr>     
+  <tr> <td>X-CDMI-Specification-Version</td> <td>Header String</td> <td>"1.1"</td>                     <td>Mandatory</td>   </tr>
+</table>
+
+<p><em>Response Headers</em>:</p>
+
+<table>
+  <tr> <th>Header</th>                       <th>Type</th>          <th>Description</th>               <th>Requirement</th> </tr>
+  <tr> <td>Content-Type</td>                 <td>Header String</td> <td>"application/cdmi-object"</td> <td>Mandatory</td>   </tr>      
+  <tr> <td>X-CDMI-Specification-Version</td> <td>Header String</td> <td>"1.1"</td>                     <td>Mandatory</td>   </tr>
+</table>
+
+<p><em>Response Body</em>:</p>
+
+<table>
+  <tr> <th>Field Name</th> <th>Type</th>        <th>Description</th>                               <th>Requirement</th> </tr>
+  <tr> <td>objectType</td> <td>JSON String</td> <td>"application/cdmi-object"</td>                 <td>Mandatory</td>   </tr>
+  <tr> <td>objectID</td>   <td>JSON String</td> <td>ObjectID of the object</td>                    <td>Mandatory</td>   </tr>  
+  <tr> <td>objectName</td> <td>JSON String</td> <td>Name of the object</td>                        <td>Mandatory</td>   </tr>     
+  <tr> <td>parentURI</td>  <td>JSON String</td> <td>URI for the parent object</td>                 <td>Mandatory</td>   </tr>    
+  <tr> <td>parentID</td>   <td>JSON String</td> <td>Object ID of the parent object</td>            <td>Mandatory</td>   </tr>    
+  <tr> <td>mimetype</td>   <td>JSON String</td> <td>MIME type of the value of the data object</td> <td>Mandatory</td>   </tr>     
+  <tr> <td>metadata</td>   <td>JSON Object</td> <td>Metadata for the object</td>                   <td>Mandatory</td>   </tr>  
+  <tr> <td>value</td>      <td>JSON String</td> <td>data object value</td>                         <td>Conditional</td> </tr>      
+</table>
+
+<p><em>Response Status</em>:</p>
+
+<table>
+  <tr> <th>HTTP Status</th>      <th>Description</th>                                                     </tr>
+  <tr> <td>200 OK</td>           <td>The metadata for the collection is provided in the Body</td> </tr>
+  <tr> <td>401 Unauthorized</td> <td>The authentication credentials are missing or invalid</td>           </tr>
+  <tr> <td>403 Forbidden</td>    <td>The client lacks the proper authorization</td>                       </tr>
+  <tr> <td>404 Not Found</td>    <td>The resource was not found at the specified URI</td>                 </tr>
+</table>
+
+<p><em>Example</em>:</p>
+
+<p>GET to the data object URI to read all fields of the data object:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>GET /api/cdmi/MyCollection/MyDataObject.txt HTTP/1.1
+Host: 192.168.12.12
+Accept: application/cdmi-object
+X-CDMI-Specification-Version: 1.1
+</code></pre></div></div>
+
+<p>Response:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>HTTP/1.1 200 OK
+Content-Type: application/cdmi-object
+X-CDMI-Specification-Version: 1.1
+
+{
+  "objectType" : "application/cdmi-object",
+  "objectID" : "00007ED90010D891022876A8DE0BC0FD",
+  "objectName" : "MyDataObject.txt",  
+  "parentURI" : "MyCollection/",
+  "parentID" : "00007E7F00102E230ED82694DAA975D2",
+  "mimetype" : "text/plain",
+  "metadata" : {
+                "cdmi_size" : "37"
+               },
+  "valuerange" : "0-36",
+  "value" : "This is the Value of this Data Object"
+
+}
+</code></pre></div></div>
+
+<h3 id="update-a-data-object-using-http"><strong>Update a data object using HTTP</strong></h3>
+
+<p><em>Synopsys</em>:</p>
+
+<p>The following HTTP PUT updates an existing data object at the specified URI:</p>
+
+<p><code class="highlighter-rouge">PUT &lt;root URI&gt;/api/cdmi/&lt;CollectionName&gt;/&lt;DataObjectName&gt;</code></p>
+
+<p>where:</p>
+<ul>
+  <li><code class="highlighter-rouge">&lt;root URI&gt;</code> is the URL of the web server.</li>
+  <li><code class="highlighter-rouge">&lt;CollectionName&gt;</code> is zero or more intermediate collection that already exist.</li>
+  <li><code class="highlighter-rouge">&lt;DataObjectName&gt;</code> is the name for the data object to be updated.</li>
+</ul>
+
+<p><em>Request Headers</em>:</p>
+
+<table>
+  <tr> <th>Header</th>        <th>Type</th>          <th>Description</th>                                                <th>Requirement</th> </tr>
+  <tr> <td>Content-Type</td>  <td>Header String</td> <td>The content type of the data to be stored as a data object</td> <td>Optional</td>    </tr>     
+  <tr> <td>Content-Range</td> <td>Header String</td> <td>A valid range-specifier</td>                                    <td>Optional</td>   </tr>
+</table>
+
+<p><em>Request Body</em>:</p>
+
+<p>The request Body contains the data to be stored.</p>
+
+<p><em>Response Status</em>:</p>
+
+<table>
+  <tr> <th>HTTP Status</th>      <th>Description</th>                                           </tr>
+  <tr> <td>201 No Content</td>   <td>The new data object was updated</td>                       </tr>
+  <tr> <td>401 Unauthorized</td> <td>The authentication credentials are missing or invalid</td> </tr>
+  <tr> <td>403 Forbidden</td>    <td>The client lacks the proper authorization</td>             </tr>
+  <tr> <td>404 Not Found</td>    <td>The resource was not found at the specified URI</td>       </tr>
+</table>
+
+<p><em>Example</em>:</p>
+
+<p>PUT to the data object URI to update the value of the data object:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PUT /api/cdmi/MyCollection/MyDataObject.txt HTTP/1.1
+Host: 192.168.12.12
+Content-Type: text/plain
+Content-Length: 37
+
+This is the value of this Data Object
+</code></pre></div></div>
+
+<p>Response:</p>
+
+<p><code class="highlighter-rouge">HTTP/1.1 204 No Content</code></p>
+
+<h3 id="update-a-data-object-using-cdmi"><strong>Update a data object using CDMI</strong></h3>
+
+<p><em>Synopsys</em>:</p>
+
+<p>The following HTTP PUT updates an existing data object at the specified URI:</p>
+
+<p><code class="highlighter-rouge">PUT &lt;root URI&gt;/api/cdmi/&lt;CollectionName&gt;/&lt;DataObjectName&gt;/</code></p>
+
+<p><code class="highlighter-rouge">PUT &lt;root URI&gt;/api/cdmi/&lt;CollectionName&gt;/&lt;DataObjectName&gt;/?value:&lt;range&gt;</code></p>
+
+<p><code class="highlighter-rouge">PUT &lt;root URI&gt;/api/cdmi/&lt;CollectionName&gt;/&lt;DataObjectName&gt;/?metadata:&lt;metadataname&gt;</code></p>
+
+<p>where:</p>
+<ul>
+  <li><code class="highlighter-rouge">&lt;root URI&gt;</code> is the URL of the web server.</li>
+  <li><code class="highlighter-rouge">&lt;CollectionName&gt;</code> is zero or more intermediate collection objects.</li>
+  <li><code class="highlighter-rouge">&lt;DataObjectName&gt;</code> is the name for the data object to be updated.</li>
+  <li><code class="highlighter-rouge">&lt;range&gt;</code> is a byte range for the data object value to be updated.</li>
+  <li><code class="highlighter-rouge">&lt;metadataname&gt;</code> is the name for the metadata to be updated.</li>
+</ul>
+
+<p><em>Request Headers</em>:</p>
+
+<table>
+  <tr> <th>Header</th>                       <th>Type</th>          <th>Description</th>               <th>Requirement</th> </tr>
+  <tr> <td>Accept</td>                       <td>Header String</td> <td>"application/cdmi-object"</td> <td>Mandatory</td>   </tr>       
+  <tr> <td>X-CDMI-Specification-Version</td> <td>Header String</td> <td>"1.1"</td>                     <td>Mandatory</td>   </tr>
+</table>
+
+<p><em>Request Body</em>:</p>
+
+<table>
+  <tr> <th>Field Name</th> <th>Type</th>        <th>Description</th>                                            <th>Requirement</th> </tr>
+  <tr> <td>mimetype</td>   <td>JSON String</td> <td>Mime type of the data contained within the value field</td> <td>Optional</td>    </tr>
+  <tr> <td>metadata</td>   <td>JSON Object</td> <td>Metadata for the collection object</td>                     <td>Optional</td>    </tr>
+  <tr> <td>value</td>      <td>JSON String</td> <td>The data object value</td>                                  <td>Optional</td>    </tr>
+</table>
+
+<p><em>Response Status</em>:</p>
+
+<table>
+  <tr> <th>HTTP Status</th>      <th>Description</th>                                           </tr>
+  <tr> <td>204 No Content</td>   <td>The data object content was updated</td>                   </tr>
+  <tr> <td>400 Bad Request</td>  <td>The request contains invalid parameters</td>               </tr>
+  <tr> <td>401 Unauthorized</td> <td>The authentication credentials are missing or invalid</td> </tr>
+  <tr> <td>403 Forbidden</td>    <td>The client lacks the proper authorization</td>             </tr>
+  <tr> <td>404 Not Found</td>    <td>The resource was not found at the specified URI</td>       </tr>
+</table>
+
+<p><em>Example</em>:</p>
+
+<p>PUT to the data object URI to set new field values:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PUT /api/cdmi/MyCollection/MyDataObject.txt HTTP/1.1
+Host: 192.168.12.12
+Content-Type: application/cdmi-object
+X-CDMI-Specification-Version: 1.1
+
+{
+  "mimetype" : "text/plain",
+  "metadata": { "colour": "red", },
+  "value" : "This is the Value of this Data Object"
+}
+</code></pre></div></div>
+
+<p>Response:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>HTTP/1.1 204 No Content
+</code></pre></div></div>
+
+
+    </section>
+
+    
+  </body>
+</html>
