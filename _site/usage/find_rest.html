@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+
+<!-- Begin Jekyll SEO tag v2.3.0 -->
+<title>Find RESTful API | Indigo Documentation</title>
+<meta property="og:title" content="Find RESTful API" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="http://localhost:4000/usage/find_rest.html" />
+<meta property="og:url" content="http://localhost:4000/usage/find_rest.html" />
+<meta property="og:site_name" content="Indigo Documentation" />
+<script type="application/ld+json">
+{"name":null,"description":null,"author":null,"@type":"WebPage","url":"http://localhost:4000/usage/find_rest.html","publisher":null,"image":null,"headline":"Find RESTful API","dateModified":null,"datePublished":null,"sameAs":null,"mainEntityOfPage":null,"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#157878">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/assets/css/style.css?v=f5357d4f2b3dd7ca60321d4aaeb3140df84f3edf">
+    <link rel="stylesheet" href="/assets/css/mystyle.css">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Indigo Documentation</h1>
+      <h2 class="project-tagline"></h2>
+      
+        <a href="http://github.com/Indigo-Uliv" class="btn">View on GitHub</a>
+      
+      
+    </section>
+
+    <section class="main-content">
+      <h1 id="find-restful-api">Find RESTful API</h1>
+
+<h2 id="presentation">Presentation</h2>
+
+<p>Indigo provides a minimal search API. It indexes the names of collections or
+data objects and the name and values of metadata.</p>
+
+<h2 id="find-objects-matching-a-term">Find objects matching a term</h2>
+
+<p><em>Synopsys</em>:</p>
+
+<p>We have defined a minimal find API accessible under /api/find. It can search
+  in names or metadata of collections and data objects and returns matching
+  objects.</p>
+
+<p>The following HTTP GET query the registry:</p>
+
+<p><code class="highlighter-rouge">GET &lt;root URI&gt;/api/find?findTerms=&lt;term&gt;</code></p>
+
+<p><code class="highlighter-rouge">GET &lt;root URI&gt;/api/find?findTerms=&lt;term&gt;&amp;where=&lt;where&gt;</code></p>
+
+<p>where:</p>
+<ul>
+  <li><code class="highlighter-rouge">&lt;root URI&gt;</code> is the URL of the web server.</li>
+  <li><code class="highlighter-rouge">&lt;term&gt;</code> is the keyword we are looking for.</li>
+  <li><code class="highlighter-rouge">&lt;where&gt;</code> is the place we are looking, it can be “name”,
+  “metadata” or “both”. The default value is “both”.</li>
+</ul>
+
+<p><em>Response Body</em>:</p>
+
+<table>
+  <tr> <th>Field Name</th> <th>Type</th>                       <th>Description</th>                          <th>Requirement</th> </tr>
+  <tr> <td>result</td>     <td>JSON Array of JSON Strings</td> <td>List of URI for the matching object.</td> <td>Mandatory</td>   </tr>
+</table>
+
+<p><em>Response Status</em>:</p>
+
+<table>
+  <tr> <th>HTTP Status</th>      <th>Description</th>                                           </tr>
+  <tr> <td>200 OK</td>           <td>The result are returned in the response body</td>          </tr>
+  <tr> <td>400 Bad Request</td>  <td>The request contains invalid parameters</td>               </tr>
+  <tr> <td>401 Unauthorized</td> <td>The authentication credentials are missing or invalid</td> </tr>
+  <tr> <td>403 Forbidden</td>    <td>The client lacks the proper authorization</td>             </tr>
+</table>
+
+<p><em>Example</em>:</p>
+
+<p>GET to the find URI to get matching objects:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>GET /api/find?findTerms=test HTTP/1.1
+Host: 192.168.12.12
+</code></pre></div></div>
+
+<p>Response:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>HTTP/1.1 200 OK
+
+{
+  “result” : [“/MyContainer/”,
+              “/MyCollection/MyDataObject.txt”,
+		          …,
+             ]
+}
+</code></pre></div></div>
+
+
+    </section>
+
+    
+  </body>
+</html>
