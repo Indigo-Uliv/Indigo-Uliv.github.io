@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+
+<!-- Begin Jekyll SEO tag v2.3.0 -->
+<title>CDMI RESTful API | Indigo Documentation</title>
+<meta property="og:title" content="CDMI RESTful API" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="http://localhost:4000/usage/admin_rest.html" />
+<meta property="og:url" content="http://localhost:4000/usage/admin_rest.html" />
+<meta property="og:site_name" content="Indigo Documentation" />
+<script type="application/ld+json">
+{"name":null,"description":null,"author":null,"@type":"WebPage","url":"http://localhost:4000/usage/admin_rest.html","publisher":null,"image":null,"headline":"CDMI RESTful API","dateModified":null,"datePublished":null,"sameAs":null,"mainEntityOfPage":null,"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#157878">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/assets/css/style.css?v=e359d20cc074ecab2946afbd9ac14845bc542aa7">
+    <link rel="stylesheet" href="/assets/css/mystyle.css">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Indigo Documentation</h1>
+      <h2 class="project-tagline"></h2>
+      
+        <a href="http://github.com/Indigo-Uliv" class="btn">View on GitHub</a>
+      
+      
+    </section>
+
+    <section class="main-content">
+      <h1 id="cdmi-restful-api">CDMI RESTful API</h1>
+
+<ul id="markdown-toc">
+  <li><a href="#cdmi-restful-api" id="markdown-toc-cdmi-restful-api">CDMI RESTful API</a>    <ul>
+      <li><a href="#presentation" id="markdown-toc-presentation">Presentation</a></li>
+      <li><a href="#groups" id="markdown-toc-groups">Groups</a>        <ul>
+          <li><a href="#get-the-list-of-existing-groups" id="markdown-toc-get-the-list-of-existing-groups"><strong>Get the list of existing groups</strong></a></li>
+          <li><a href="#create-a-new-group" id="markdown-toc-create-a-new-group"><strong>Create a new group</strong></a></li>
+          <li><a href="#get-information-on-an-existing-group" id="markdown-toc-get-information-on-an-existing-group"><strong>Get Information on an existing group</strong></a></li>
+          <li><a href="#delete-an-existing-group" id="markdown-toc-delete-an-existing-group"><strong>Delete an existing group</strong></a></li>
+          <li><a href="#modify-an-existing-group" id="markdown-toc-modify-an-existing-group"><strong>Modify an existing group</strong></a></li>
+        </ul>
+      </li>
+      <li><a href="#users" id="markdown-toc-users">Users</a>        <ul>
+          <li><a href="#get-the-list-of-existing-users" id="markdown-toc-get-the-list-of-existing-users"><strong>Get the list of existing users</strong></a></li>
+          <li><a href="#create-a-new-user" id="markdown-toc-create-a-new-user"><strong>Create a new user</strong></a></li>
+          <li><a href="#get-information-on-an-existing-user" id="markdown-toc-get-information-on-an-existing-user"><strong>Get Information on an existing user</strong></a></li>
+          <li><a href="#delete-an-existing-user" id="markdown-toc-delete-an-existing-user"><strong>Delete an existing user</strong></a></li>
+          <li><a href="#modify-an-existing-user" id="markdown-toc-modify-an-existing-user"><strong>Modify an existing user</strong></a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="presentation">Presentation</h2>
+
+<p>The <a href="https://github.com/Indigo-Uliv/indigo-web">Indigo Web project</a> is a
+translation layer that provides an accessible and well structured set of access
+methods to the data management system. Access methods comes in the form of
+RESTful services, accessible via the base url of an indigo node running indigo-web.
+This Admin RESTful API allows the remote management of the system. It is
+available at <em><strong>/api/admin</strong></em> from you root URI.</p>
+
+<h2 id="groups">Groups</h2>
+
+<h3 id="get-the-list-of-existing-groups"><strong>Get the list of existing groups</strong></h3>
+
+<p><em>Synopsys</em>:</p>
+
+<p>To get a list of existing groups, the following request shall be performed:</p>
+
+<p><code class="highlighter-rouge">GET &lt;root URI&gt;/api/admin/groups</code></p>
+
+<p>where:</p>
+<ul>
+  <li><code class="highlighter-rouge">&lt;root URI&gt;</code> is the URL of the web server.</li>
+</ul>
+
+<p><em>Response Body</em>:</p>
+
+<p>a JSON array of JSON String: the list of group names.</p>
+
+<p><em>Response Status</em>:</p>
+
+<table>
+  <tr> <th>HTTP Status</th> <th>Description</th>          </tr>
+  <tr> <td>200 OK</td>      <td>The list is returned</td> </tr>
+</table>
+
+<p><em>Example</em>:</p>
+
+<p>GET to the groups URI to list existing groups:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>GET /api/admin/groups HTTP/1.1
+Host: 192.168.12.12
+</code></pre></div></div>
+
+<p>Response:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>HTTP/1.1 200 OK
+
+['group1', 'group2']
+</code></pre></div></div>
+
+<h3 id="create-a-new-group"><strong>Create a new group</strong></h3>
+
+<p><em>Synopsys</em>:</p>
+
+<p>To create a new group, the following request shall be performed:</p>
+
+<p><code class="highlighter-rouge">POST &lt;root URI&gt;/api/admin/groups</code></p>
+
+<p>where:</p>
+<ul>
+  <li><code class="highlighter-rouge">&lt;root URI&gt;</code> is the URL of the web server.</li>
+</ul>
+
+<p><em>Request Body</em>:</p>
+
+<p>The request expects a json dictionary to provide the name of the group.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{ "groupname": "NewGroupName" }
+</code></pre></div></div>
+
+<p><em>Response Body</em>:</p>
+
+<p>a JSON dictionary representing the new group (uuid, name and members).</p>
+
+<p><em>Response Status</em>:</p>
+
+<table>
+  <tr> <th>HTTP Status</th>     <th>Description</th>                               </tr>
+  <tr> <td>201 Created</td>     <td>The group is created</td>                      </tr>
+  <tr> <td>400 Bad Request</td> <td>The request contains invalid parameters</td>   </tr>
+  <tr> <td>403 Forbidden</td>   <td>The client lacks the proper authorization</td> </tr>
+  <tr> <td>409 Conflict</td>    <td>The group name is already used</td>            </tr>
+</table>
+
+<p><em>Example</em>:</p>
+
+<p>POST to the groups URI to create a new group:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>POST /api/admin/groups HTTP/1.1
+Host: 192.168.12.12
+
+{ "groupname": "group2" }
+</code></pre></div></div>
+
+<p>Response:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>HTTP/1.1 201 Created
+
+{
+  "uuid": "43dbdc8f-b863-471f-98d1-982dd51410f1"
+  "name": "group2",
+  "members": [],
+}
+</code></pre></div></div>
+
+<h3 id="get-information-on-an-existing-group"><strong>Get Information on an existing group</strong></h3>
+
+<p><em>Synopsys</em>:</p>
+
+<p>To get information on an existing group, the following request shall be
+  performed:</p>
+
+<p><code class="highlighter-rouge">GET &lt;root URI&gt;/api/admin/groups/&lt;GroupName&gt;</code></p>
+
+<p>where:</p>
+<ul>
+  <li><code class="highlighter-rouge">&lt;root URI&gt;</code> is the URL of the web server.</li>
+  <li><code class="highlighter-rouge">&lt;GroupName&gt;</code> is the name of the group.</li>
+</ul>
+
+<p><em>Response Body</em>:</p>
+
+<p>a JSON dictionary representing the group (uuid, name and members).</p>
+
+<p><em>Response Status</em>:</p>
+
+<table>
+  <tr> <th>HTTP Status</th>   <th>Description</th>                 </tr>
+  <tr> <td>200 OK</td>        <td>The information is returned</td> </tr>
+  <tr> <td>404 Not Found</td> <td>The group doesn't exist</td>     </tr>
+</table>
+
+<p><em>Example</em>:</p>
+
+<p>GET to the groups URI to get information:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>GET /api/admin/groups/group2 HTTP/1.1
+Host: 192.168.12.12
+</code></pre></div></div>
+
+<p>Response:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>HTTP/1.1 200 OK
+
+{
+  "uuid": "43dbdc8f-b863-471f-98d1-982dd51410f1"
+  "name": "group2",
+  "members": [],
+}
+</code></pre></div></div>
+
+<h3 id="delete-an-existing-group"><strong>Delete an existing group</strong></h3>
+
+<p><em>Synopsys</em>:</p>
+
+<p>To delete on an existing group, the following request shall be performed:</p>
+
+<p><code class="highlighter-rouge">DELETE &lt;root URI&gt;/api/admin/groups/&lt;GroupName&gt;</code></p>
+
+<p>where:</p>
+<ul>
+  <li><code class="highlighter-rouge">&lt;root URI&gt;</code> is the URL of the web server.</li>
+  <li><code class="highlighter-rouge">&lt;GroupName&gt;</code> is the name of the group.</li>
+</ul>
+
+<p><em>Response Status</em>:</p>
+
+<table>
+  <tr> <th>HTTP Status</th>   <th>Description</th>                               </tr>
+  <tr> <td>200 OK</td>        <td>The group is deleted</td>                      </tr>
+  <tr> <td>403 Forbidden</td> <td>The client lacks the proper authorization</td> </tr>
+  <tr> <td>404 Not Found</td> <td>The group doesn't exist</td>                   </tr>
+</table>
+
+<p><em>Example</em>:</p>
+
+<p>DELETE to the groups URI to delete a group:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>DELETE /api/admin/groups/group2 HTTP/1.1
+Host: 192.168.12.12
+</code></pre></div></div>
+
+<p>Response:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>HTTP/1.1 200 OK
+</code></pre></div></div>
+
+<h3 id="modify-an-existing-group"><strong>Modify an existing group</strong></h3>
+
+<p><em>Synopsys</em>:</p>
+
+<p>To modify a group, the following request shall be performed:</p>
+
+<p><code class="highlighter-rouge">PUT &lt;root URI&gt;/api/admin/groups/&lt;GroupName&gt;</code></p>
+
+<p>where:</p>
+<ul>
+  <li><code class="highlighter-rouge">&lt;root URI&gt;</code> is the URL of the web server.</li>
+  <li><code class="highlighter-rouge">&lt;GroupName&gt;</code> is the name of the group.</li>
+</ul>
+
+<p><em>Request Body</em>:</p>
+
+<p>The request expects a json dictionary to provide the name of the
+users to add or remove.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{ 
+  "add_users": ["user1", "user2", ...] or
+  "rm_users": ["user1", "user2", ...]
+}
+</code></pre></div></div>
+
+<p><em>Response Body</em>:</p>
+
+<p>a message string informing which users have been added or removed.</p>
+
+<p><em>Response Status</em>:</p>
+
+<table>
+  <tr> <th>HTTP Status</th>         <th>Description</th>                               </tr>
+  <tr> <td>200 OK</td>              <td>The group has been fully modified</td>         </tr>
+  <tr> <td>206 Partial Content</td> <td>Some users have been added or deleted</td>     </tr>
+  <tr> <td>400 Bad Request</td>     <td>The request contains invalid parameters</td>   </tr>
+  <tr> <td>403 Forbidden</td>       <td>The client lacks the proper authorization</td> </tr>
+</table>
+
+<p><em>Example 1</em>:</p>
+
+<p>PUT to the groups URI to add users to a group:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PUT /api/admin/groups/group2 HTTP/1.1
+Host: 192.168.12.12
+
+{ "add_users": ["user3", "user5"] }
+</code></pre></div></div>
+
+<p>Response:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>HTTP/1.1 200 OK
+
+Added user3, user5 to the group group2
+</code></pre></div></div>
+
+<p><em>Example 2</em>:</p>
+
+<p>PUT to the groups URI to remove users from a group:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PUT /api/admin/groups/group2 HTTP/1.1
+Host: 192.168.12.12
+
+{ "rm_users": ["user5"] }
+</code></pre></div></div>
+
+<p>Response:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>HTTP/1.1 200 OK
+
+Removed user5 from the group group2
+</code></pre></div></div>
+
+<h2 id="users">Users</h2>
+
+<h3 id="get-the-list-of-existing-users"><strong>Get the list of existing users</strong></h3>
+
+<p><em>Synopsys</em>:</p>
+
+<p>To get a list of existing users, the following request shall be performed:</p>
+
+<p><code class="highlighter-rouge">GET &lt;root URI&gt;/api/admin/users</code></p>
+
+<p>where:</p>
+<ul>
+  <li><code class="highlighter-rouge">&lt;root URI&gt;</code> is the URL of the web server.</li>
+</ul>
+
+<p><em>Response Body</em>:</p>
+
+<p>a JSON array of JSON String: the list of users names.</p>
+
+<p><em>Response Status</em>:</p>
+
+<table>
+  <tr> <th>HTTP Status</th>   <th>Description</th>              </tr>
+  <tr> <td>200 OK</td>        <td>The list is returned</td>     </tr>
+</table>
+
+<p><em>Example</em>:</p>
+
+<p>GET to the users URI to list existing users:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>GET /api/admin/users HTTP/1.1
+Host: 192.168.12.12
+</code></pre></div></div>
+
+<p>Response:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>HTTP/1.1 200 OK
+
+['user1', 'user2']
+</code></pre></div></div>
+
+<h3 id="create-a-new-user"><strong>Create a new user</strong></h3>
+
+<p><em>Synopsys</em>:</p>
+
+<p>To create a new user, the following request shall be performed:</p>
+
+<p><code class="highlighter-rouge">POST &lt;root URI&gt;/api/admin/users</code></p>
+
+<p>where:</p>
+<ul>
+  <li><code class="highlighter-rouge">&lt;root URI&gt;</code> is the URL of the web server.</li>
+</ul>
+
+<p><em>Request Body</em>:</p>
+
+<p>The request expects a json dictionary to provide the information about the user.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+  "username": "NewUserName",
+  "password": "Password",
+  "email": "UserEmail",
+  "administrator": "is_admin"
+}
+</code></pre></div></div>
+
+<p>where:</p>
+<ul>
+  <li><code class="highlighter-rouge">NewUserName</code> is the name of the user</li>
+  <li><code class="highlighter-rouge">Password</code> is its Password</li>
+  <li><code class="highlighter-rouge">UserEmail</code> is its email</li>
+  <li><code class="highlighter-rouge">IsAdmin</code> is a boolean to make the user an administrator</li>
+</ul>
+
+<p><em>Response Body</em>:</p>
+
+<p>a JSON dictionary representing the new user (‘uuid’, ‘name’, ‘email’,
+‘administrator’, ‘active’, ‘groups’).</p>
+
+<p><em>Response Status</em>:</p>
+
+<table>
+  <tr> <th>HTTP Status</th>     <th>Description</th>                               </tr>
+  <tr> <td>201 Created</td>     <td>The user is created</td>                      </tr>
+  <tr> <td>400 Bad Request</td> <td>The request contains invalid parameters</td>   </tr>
+  <tr> <td>403 Forbidden</td>   <td>The client lacks the proper authorization</td> </tr>
+  <tr> <td>409 Conflict</td>    <td>The user name is already used</td>            </tr>
+</table>
+
+<p><em>Example</em>:</p>
+
+<p>POST to the users URI to create a new user:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>POST /api/admin/users HTTP/1.1
+Host: 192.168.12.12
+
+{
+  "username": "user1",
+  "password": "userPW",
+  "email": "user@indigo.com",
+  "administrator": "false"
+}
+</code></pre></div></div>
+
+<p>Response:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>HTTP/1.1 201 Created
+
+{
+  'uuid': "2f9b85ca-522b-4657-a984-493ab116424c",
+  'name': "user1",
+  'email': "user@indigo.com",
+  'administrator': "true",
+  'active': "true",
+  'groups': []
+}
+</code></pre></div></div>
+
+<h3 id="get-information-on-an-existing-user"><strong>Get Information on an existing user</strong></h3>
+
+<p><em>Synopsys</em>:</p>
+
+<p>To get information on an existing user, the following request shall be
+  performed:</p>
+
+<p><code class="highlighter-rouge">GET &lt;root URI&gt;/api/admin/users/&lt;UserName&gt;</code></p>
+
+<p>where:</p>
+<ul>
+  <li><code class="highlighter-rouge">&lt;root URI&gt;</code> is the URL of the web server.</li>
+  <li><code class="highlighter-rouge">&lt;UserName&gt;</code> is the name of the user.</li>
+</ul>
+
+<p><em>Response Body</em>:</p>
+
+<p>a JSON dictionary representing the user (‘uuid’, ‘name’, ‘email’,
+‘administrator’, ‘active’, ‘groups’).</p>
+
+<p><em>Response Status</em>:</p>
+
+<table>
+  <tr> <th>HTTP Status</th>   <th>Description</th>                 </tr>
+  <tr> <td>200 OK</td>        <td>The information is returned</td> </tr>
+  <tr> <td>404 Not Found</td> <td>The user doesn't exist</td>     </tr>
+</table>
+
+<p><em>Example</em>:</p>
+
+<p>GET to the users URI to get information:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>GET /api/admin/users/user1 HTTP/1.1
+Host: 192.168.12.12
+</code></pre></div></div>
+
+<p>Response:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>HTTP/1.1 200 OK
+
+{
+  'uuid': "2f9b85ca-522b-4657-a984-493ab116424c",
+  'name': "user1",
+  'email': "user@indigo.com",
+  'administrator': "true",
+  'active': "true",
+  'groups': []
+}
+</code></pre></div></div>
+
+<h3 id="delete-an-existing-user"><strong>Delete an existing user</strong></h3>
+
+<p><em>Synopsys</em>:</p>
+
+<p>To delete on an existing user, the following request shall be performed:</p>
+
+<p><code class="highlighter-rouge">DELETE &lt;root URI&gt;/api/admin/users/&lt;UserName&gt;</code></p>
+
+<p>where:</p>
+<ul>
+  <li><code class="highlighter-rouge">&lt;root URI&gt;</code> is the URL of the web server.</li>
+  <li><code class="highlighter-rouge">&lt;UserName&gt;</code> is the name of the user.</li>
+</ul>
+
+<p><em>Response Status</em>:</p>
+
+<table>
+  <tr> <th>HTTP Status</th>   <th>Description</th>                               </tr>
+  <tr> <td>200 OK</td>        <td>The user is deleted</td>               </tr>
+  <tr> <td>403 Forbidden</td> <td>The client lacks the proper authorization</td> </tr>
+  <tr> <td>404 Not Found</td> <td>The user doesn't exist</td>                    </tr>
+</table>
+
+<p><em>Example</em>:</p>
+
+<p>DELETE to the users URI to delete a user:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>DELETE /api/admin/user/user1 HTTP/1.1
+Host: 192.168.12.12
+</code></pre></div></div>
+
+<p>Response:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>HTTP/1.1 200 OK
+</code></pre></div></div>
+
+<h3 id="modify-an-existing-user"><strong>Modify an existing user</strong></h3>
+
+<p><em>Synopsys</em>:</p>
+
+<p>To modify a user, the following request shall be performed:</p>
+
+<p><code class="highlighter-rouge">PUT &lt;root URI&gt;/api/admin/users/&lt;UserName&gt;</code></p>
+
+<p>where:</p>
+<ul>
+  <li><code class="highlighter-rouge">&lt;root URI&gt;</code> is the URL of the web server.</li>
+  <li><code class="highlighter-rouge">&lt;UserName&gt;</code> is the name of the user.</li>
+</ul>
+
+<p><em>Request Body</em>:</p>
+
+<p>The request expects a json dictionary to provide the fields of the user to be
+modified.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+  "password": password,
+  "email": email,
+  "administrator": is_admin,
+  "active": is_active}
+}
+</code></pre></div></div>
+
+<p><em>Response Body</em>:</p>
+
+<p>a JSON dictionary representing the user (‘uuid’, ‘name’, ‘email’,
+‘administrator’, ‘active’, ‘groups’).</p>
+
+<p><em>Response Status</em>:</p>
+
+<table>
+  <tr> <th>HTTP Status</th>         <th>Description</th>                               </tr>
+  <tr> <td>200 OK</td>              <td>The group has been fully modified</td>         </tr>
+  <tr> <td>400 Bad Request</td>     <td>The request contains invalid parameters</td>   </tr>
+  <tr> <td>403 Forbidden</td>       <td>The client lacks the proper authorization</td> </tr>
+</table>
+
+<p><em>Example</em>:</p>
+
+<p>PUT to the users URI to modify a user:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PUT /api/admin/groups/user2 HTTP/1.1
+Host: 192.168.12.12
+
+{ 
+  "email": user2@indigo.com,
+  "active": "true"
+ }
+</code></pre></div></div>
+
+<p>Response:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>HTTP/1.1 200 OK
+
+{
+  'uuid': "2f9b85ca-522b-4657-a984-493ab116424c",
+  'name': "user2",
+  'email': "user2@indigo.com",
+  'administrator': "false",
+  'active': "true",
+  'groups': []
+}
+</code></pre></div></div>
+
+
+    </section>
+
+    
+  </body>
+</html>
