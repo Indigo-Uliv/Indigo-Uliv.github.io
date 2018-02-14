@@ -5,4 +5,4 @@
 * [CDMI RESTful API](cdmi_rest)
 * [Admin RESTful API](admin_rest)
 * [Find RESTful API](find_rest)
-* Listener<!---[Listener](listener)--->
+* [Listener](listener)

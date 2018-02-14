@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+
+<!-- Begin Jekyll SEO tag v2.3.0 -->
+<title>Indigo Listener | Indigo Documentation</title>
+<meta property="og:title" content="Indigo Listener" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="http://localhost:4000/usage/listener.html" />
+<meta property="og:url" content="http://localhost:4000/usage/listener.html" />
+<meta property="og:site_name" content="Indigo Documentation" />
+<script type="application/ld+json">
+{"name":null,"description":null,"author":null,"@type":"WebPage","url":"http://localhost:4000/usage/listener.html","publisher":null,"image":null,"headline":"Indigo Listener","dateModified":null,"datePublished":null,"sameAs":null,"mainEntityOfPage":null,"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#157878">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/assets/css/style.css?v=6a3cde893e0e77b0dbf9133d7dd59495792a2e96">
+    <link rel="stylesheet" href="/assets/css/mystyle.css">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Indigo Documentation</h1>
+      <h2 class="project-tagline"></h2>
+      
+        <a href="http://github.com/Indigo-Uliv" class="btn">View on GitHub</a>
+      
+      
+    </section>
+
+    <section class="main-content">
+      <h1 id="indigo-listener">Indigo Listener</h1>
+
+<h2 id="synopsis">Synopsis</h2>
+
+<p>The listener is a daemon that executes user scripts written in Python when
+events trigger on the Indigo Management System.</p>
+
+<h2 id="overview-of-operation">Overview of operation</h2>
+
+<p>When <em>create</em>, <em>update</em>, or <em>delete</em> operations are performed on either a
+<em>collection</em>,  a <em>resource</em> (<em>container</em> and <em>data object</em> respectively in CDMI
+nomenclature), a <em>user</em> or a <em>group</em>, a message is sent to a MQTT broker running
+on the local machine containing information about the operation and resource.
+The listener checks its cache of registered user-defined scripts to determine
+if any script matches that message. If a script does match, it is passed the
+message and executed in a sandbox environment as a separate process. The
+user-defined script is free to do as it wants, given tight constraints over
+file-system access and the packages that are available. The scripts are stored
+within a special collection, and only the machine that performs the operation
+executes the script. So for any one operation, a given script will execute
+exactly once.</p>
+
+<h3 id="messages">Messages</h3>
+
+<p>Because the script that interacts with the Indigo System is running as a
+different process (or possibly on a different machine), normal intra-process
+communication will not work, so some form of inter-process or network
+communication is needed. Indigo uses <a href="http://mqtt.org/">MQTT</a> for this
+communication, which is an example of a publish/subscribe model. MQTT has a
+central “broker” that receives all messages and forwards them on to clients who
+have subscribed to a topic or topics. In the case of MQTT, topics are a text
+string in the form of a UNIX-style path or URI, which defines a hierarchy.
+For instance <code class="highlighter-rouge">create/resource/path</code>.</p>
+
+<p>The format of topics used in the listener is:</p>
+
+<p><code class="highlighter-rouge">&lt;Operation&gt;/&lt;ObjectType&gt;/&lt;ObjectIdentifier&gt;</code></p>
+
+<p>Where:</p>
+<ul>
+  <li><code class="highlighter-rouge">&lt;Operation&gt;</code> can be “create”, “delete” or “update”</li>
+  <li><code class="highlighter-rouge">&lt;ObjectType&gt;</code> can be “resource”, “collection”, “user” or “group”</li>
+  <li><code class="highlighter-rouge">&lt;ObjectIdentifier&gt;</code> can be
+    <ul>
+      <li><code class="highlighter-rouge">/collection/collection/...</code> for a collection</li>
+      <li><code class="highlighter-rouge">/collection/collection/.../resource</code> for a resource</li>
+      <li><code class="highlighter-rouge">username</code> or <code class="highlighter-rouge">groupname</code> for user and group</li>
+    </ul>
+  </li>
+</ul>
+
+<p>Subscribers can match all or part of a topic using the wildcards <code class="highlighter-rouge">#</code> and <code class="highlighter-rouge">+</code>,
+where <code class="highlighter-rouge">+</code> matches a single level of the hierarchy and <code class="highlighter-rouge">#</code> matches a complete
+sub-tree of the hierarchy and must be the last character in the topic if it is
+used.</p>
+
+<p>User-defined scripts can currently subscribe to one topic (including wildcards).
+This is defined in Indigo by giving it the metadata key “topic” and the
+matching topic string as its value. If this metadata isn’t present, the listener
+ignores the script. Note, scripts cannot trigger off changes to the <code class="highlighter-rouge">/scripts</code>
+collection.</p>
+
+<h3 id="topics-examples">Topics Examples:</h3>
+
+<ul>
+  <li>Match any operation on a particular <em>resource</em>:</li>
+</ul>
+
+<p><code class="highlighter-rouge">+/resource/somepath/someresource</code></p>
+
+<ul>
+  <li>Match a <em>create</em> operation on any <em>resource</em> or <em>collection</em> below <code class="highlighter-rouge">/somepath</code>:</li>
+</ul>
+
+<p><code class="highlighter-rouge">create/+/somepath/#</code></p>
+
+<ul>
+  <li>Match an <em>update</em> operation on the user ‘user1’:</li>
+</ul>
+
+<p><code class="highlighter-rouge">update/user/user1</code></p>
+
+<h2 id="sandbox">Sandbox</h2>
+
+<p>When a user-defined script is triggered, it is passed the topic as a command
+line argument, and metadata about the object is given in JSON format through
+<code class="highlighter-rouge">stdin</code>. The script itself can be any Python script that can be called through
+the command line, e.g: <code class="highlighter-rouge">/usr/bin/python myscript.py</code>.</p>
+
+<p>The environment the script is executed in is a Docker container running Python
+3.4.3 The script is executed as the user <code class="highlighter-rouge">nobody</code> and the entire file system
+within the container is read-only. Any output to <code class="highlighter-rouge">stdout</code> or <code class="highlighter-rouge">stderr</code> is
+directed to <code class="highlighter-rouge">/dev/null</code> TCP/IP ports 80, 443, 21, 22, 25, 587, 465 are open for
+HTTP/HTTPS/FTP/SFTP/SSH/SMTP access. Note, these ports are mapped directly onto
+the server’s ports, so they are subject to the same firewall/iptables rules as
+the server.</p>
+
+
+    </section>
+
+    
+  </body>
+</html>
