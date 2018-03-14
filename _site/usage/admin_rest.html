@@ -4,20 +4,20 @@
     <meta charset="UTF-8">
 
 <!-- Begin Jekyll SEO tag v2.3.0 -->
-<title>CDMI RESTful API | Indigo Documentation</title>
-<meta property="og:title" content="CDMI RESTful API" />
+<title>Admin RESTful API | Indigo Documentation</title>
+<meta property="og:title" content="Admin RESTful API" />
 <meta property="og:locale" content="en_US" />
 <link rel="canonical" href="http://localhost:4000/usage/admin_rest.html" />
 <meta property="og:url" content="http://localhost:4000/usage/admin_rest.html" />
 <meta property="og:site_name" content="Indigo Documentation" />
 <script type="application/ld+json">
-{"name":null,"description":null,"author":null,"@type":"WebPage","url":"http://localhost:4000/usage/admin_rest.html","publisher":null,"image":null,"headline":"CDMI RESTful API","dateModified":null,"datePublished":null,"sameAs":null,"mainEntityOfPage":null,"@context":"http://schema.org"}</script>
+{"name":null,"description":null,"author":null,"@type":"WebPage","url":"http://localhost:4000/usage/admin_rest.html","publisher":null,"image":null,"headline":"Admin RESTful API","dateModified":null,"datePublished":null,"sameAs":null,"mainEntityOfPage":null,"@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#157878">
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="/assets/css/style.css?v=6a3cde893e0e77b0dbf9133d7dd59495792a2e96">
+    <link rel="stylesheet" href="/assets/css/style.css?v=1db69fea16344b58d6fe4556e37ecdc3d2277f2c">
     <link rel="stylesheet" href="/assets/css/mystyle.css">
   </head>
   <body>
@@ -31,10 +31,10 @@
     </section>
 
     <section class="main-content">
-      <h1 id="cdmi-restful-api">CDMI RESTful API</h1>
+      <h1 id="admin-restful-api">Admin RESTful API</h1>
 
 <ul id="markdown-toc">
-  <li><a href="#cdmi-restful-api" id="markdown-toc-cdmi-restful-api">CDMI RESTful API</a>    <ul>
+  <li><a href="#admin-restful-api" id="markdown-toc-admin-restful-api">Admin RESTful API</a>    <ul>
       <li><a href="#presentation" id="markdown-toc-presentation">Presentation</a></li>
       <li><a href="#groups" id="markdown-toc-groups">Groups</a>        <ul>
           <li><a href="#get-the-list-of-existing-groups" id="markdown-toc-get-the-list-of-existing-groups"><strong>Get the list of existing groups</strong></a></li>
@@ -261,7 +261,7 @@ Host: 192.168.12.12
 <p>The request expects a json dictionary to provide the name of the
 users to add or remove.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{ 
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
   "add_users": ["user1", "user2", ...] or
   "rm_users": ["user1", "user2", ...]
 }
@@ -566,7 +566,7 @@ modified.</p>
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PUT /api/admin/groups/user2 HTTP/1.1
 Host: 192.168.12.12
 
-{ 
+{
   "email": user2@indigo.com,
   "active": "true"
  }

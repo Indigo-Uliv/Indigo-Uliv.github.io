@@ -17,7 +17,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#157878">
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="/assets/css/style.css?v=6a3cde893e0e77b0dbf9133d7dd59495792a2e96">
+    <link rel="stylesheet" href="/assets/css/style.css?v=1db69fea16344b58d6fe4556e37ecdc3d2277f2c">
     <link rel="stylesheet" href="/assets/css/mystyle.css">
   </head>
   <body>
@@ -47,6 +47,8 @@ machine or a cluster to experiment with the system. These are some examples that
 
 <span class="no">Vagrant</span><span class="p">.</span><span class="nf">configure</span><span class="p">(</span><span class="s2">"2"</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">config</span><span class="o">|</span>
 
+  <span class="n">config</span><span class="p">.</span><span class="nf">ssh</span><span class="p">.</span><span class="nf">username</span> <span class="o">=</span> <span class="s2">"indigo"</span>
+
   <span class="n">config</span><span class="p">.</span><span class="nf">vm</span><span class="p">.</span><span class="nf">define</span> <span class="s2">"node0"</span> <span class="k">do</span> <span class="o">|</span><span class="n">node0</span><span class="o">|</span>
     <span class="n">node0</span><span class="p">.</span><span class="nf">vm</span><span class="p">.</span><span class="nf">box</span> <span class="o">=</span> <span class="s2">"hashicorp/precise64"</span>
     <span class="n">node0</span><span class="p">.</span><span class="nf">vm</span><span class="p">.</span><span class="nf">box_version</span> <span class="o">=</span> <span class="s2">"1.1.0"</span>
@@ -69,6 +71,8 @@ machine or a cluster to experiment with the system. These are some examples that
 <span class="c1"># vi: set ft=ruby :</span>
 
 <span class="no">Vagrant</span><span class="p">.</span><span class="nf">configure</span><span class="p">(</span><span class="s2">"2"</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">config</span><span class="o">|</span>
+
+  <span class="n">config</span><span class="p">.</span><span class="nf">ssh</span><span class="p">.</span><span class="nf">username</span> <span class="o">=</span> <span class="s2">"indigo"</span>
 
   <span class="n">config</span><span class="p">.</span><span class="nf">vm</span><span class="p">.</span><span class="nf">define</span> <span class="s2">"node0"</span> <span class="k">do</span> <span class="o">|</span><span class="n">node0</span><span class="o">|</span>
     <span class="n">indigo</span><span class="p">.</span><span class="nf">vm</span><span class="p">.</span><span class="nf">box</span> <span class="o">=</span> <span class="s2">"generic/fedora27"</span>

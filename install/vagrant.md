@@ -13,6 +13,8 @@ machine or a cluster to experiment with the system. These are some examples that
 
 Vagrant.configure("2") do |config|
 
+  config.ssh.username = "indigo"
+
   config.vm.define "node0" do |node0|
     node0.vm.box = "hashicorp/precise64"
     node0.vm.box_version = "1.1.0"
@@ -34,6 +36,8 @@ end
 # vi: set ft=ruby :
 
 Vagrant.configure("2") do |config|
+
+  config.ssh.username = "indigo"
 
   config.vm.define "node0" do |node0|
     indigo.vm.box = "generic/fedora27"

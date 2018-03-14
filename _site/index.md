@@ -2,8 +2,7 @@ Indigo
 ======
 
 * [Presentation](presentation)
-* Architecture <!---* [Architecture](architecture)--->
+* [Architecture](architecture/index)
 * [Installation](install/index)
 * [Usage](usage/index)
-<!---* [Listener](listener)--->
 <!---* [Graph Store](graph)--->

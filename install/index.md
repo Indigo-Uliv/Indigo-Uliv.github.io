@@ -1,5 +1,5 @@
 Installation
-======
+============
 
 * [Vagrant Configuration](vagrant)
 * [VirtualBox Configuration](virtualbox)

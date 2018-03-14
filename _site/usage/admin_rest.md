@@ -1,4 +1,4 @@
-# CDMI RESTful API
+# Admin RESTful API
 
 * auto-gen TOC:
 {:toc}
@@ -221,7 +221,7 @@ The request expects a json dictionary to provide the name of the
 users to add or remove.
 
 ```
-{ 
+{
   "add_users": ["user1", "user2", ...] or
   "rm_users": ["user1", "user2", ...]
 }
@@ -545,7 +545,7 @@ _Example_:
 PUT /api/admin/groups/user2 HTTP/1.1
 Host: 192.168.12.12
 
-{ 
+{
   "email": user2@indigo.com,
   "active": "true"
  }

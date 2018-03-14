@@ -1,4 +1,5 @@
-# How to interact with an Indigo cluster
+How to interact with an Indigo cluster
+======================================
 
 * [Admin Command Line Interface](admin-cli)
 * [Indigo Command Line Interface](indigo-cli)
