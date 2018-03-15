@@ -155,11 +155,11 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.4370879"
-     inkscape:cx="115.76334"
-     inkscape:cy="153.74924"
+     inkscape:zoom="1.8696025"
+     inkscape:cx="216.5881"
+     inkscape:cy="120.38946"
      inkscape:document-units="px"
-     inkscape:current-layer="g4276"
+     inkscape:current-layer="g4280"
      showgrid="false"
      inkscape:window-width="1327"
      inkscape:window-height="1148"
@@ -182,7 +182,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -418,7 +418,7 @@
              inkscape:export-ydpi="90"
              inkscape:export-xdpi="90"
              xml:space="preserve"
-             style="font-style:normal;font-weight:normal;font-size:20px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#914005;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+             style="font-style:normal;font-weight:normal;font-size:20px;line-height:125%;font-family:FreeSans;letter-spacing:0px;word-spacing:0px;fill:#b75d1b;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;-inkscape-font-specification:FreeSans;font-stretch:normal;font-variant:normal;"
              x="64.878723"
              y="235.15872"
              id="text4556-7-3-3-9"
@@ -427,12 +427,12 @@
                id="tspan4558-7-3-6-4"
                x="64.878723"
                y="235.15872"
-               style="font-style:italic;font-variant:normal;font-weight:600;font-stretch:normal;font-size:17.5px;font-family:FreeSans;-inkscape-font-specification:'FreeSans Semi-Bold Italic'">username</tspan></text>
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:17.5px;font-family:FreeSans;-inkscape-font-specification:FreeSans;fill:#b75d1b;fill-opacity:1;">username</tspan></text>
           <text
              inkscape:export-ydpi="90"
              inkscape:export-xdpi="90"
              xml:space="preserve"
-             style="font-style:normal;font-weight:normal;font-size:20px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#914005;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+             style="font-style:normal;font-weight:normal;font-size:20px;line-height:125%;font-family:FreeSans;letter-spacing:0px;word-spacing:0px;fill:#b75d1b;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;-inkscape-font-specification:FreeSans;font-stretch:normal;font-variant:normal;"
              x="66.226227"
              y="254.30763"
              id="text4556-7-3-7-7"
@@ -441,12 +441,12 @@
                id="tspan4558-7-3-5-8"
                x="66.226227"
                y="254.30763"
-               style="font-style:italic;font-variant:normal;font-weight:600;font-stretch:normal;font-size:17.5px;font-family:FreeSans;-inkscape-font-specification:'FreeSans Semi-Bold Italic'">processed</tspan></text>
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:17.5px;font-family:FreeSans;-inkscape-font-specification:FreeSans;fill:#b75d1b;fill-opacity:1;">processed</tspan></text>
           <text
              inkscape:export-ydpi="90"
              inkscape:export-xdpi="90"
              xml:space="preserve"
-             style="font-style:normal;font-weight:normal;font-size:20px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#914005;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+             style="font-style:normal;font-weight:normal;font-size:20px;line-height:125%;font-family:FreeSans;letter-spacing:0px;word-spacing:0px;fill:#b75d1b;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;-inkscape-font-specification:FreeSans;font-stretch:normal;font-variant:normal;"
              x="66.226227"
              y="273.45654"
              id="text4556-7-3-7-7-5"
@@ -455,7 +455,7 @@
                id="tspan4558-7-3-5-8-6"
                x="66.226227"
                y="273.45654"
-               style="font-style:italic;font-variant:normal;font-weight:600;font-stretch:normal;font-size:17.5px;font-family:FreeSans;-inkscape-font-specification:'FreeSans Semi-Bold Italic'">payload</tspan></text>
+               style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:17.5px;font-family:FreeSans;-inkscape-font-specification:FreeSans;fill:#b75d1b;fill-opacity:1;">payload</tspan></text>
         </g>
       </g>
     </g>
