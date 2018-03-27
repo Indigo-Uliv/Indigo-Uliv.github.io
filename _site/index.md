@@ -5,4 +5,4 @@ Indigo
 * [Architecture](architecture/index)
 * [Installation](install/index)
 * [Usage](usage/index)
-<!---* [Graph Store](graph)--->
+* [Screenshots](screenshots/index)

@@ -156,7 +156,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.8696025"
-     inkscape:cx="216.5881"
+     inkscape:cx="211.24333"
      inkscape:cy="120.38946"
      inkscape:document-units="px"
      inkscape:current-layer="g4280"
@@ -368,7 +368,9 @@
              sodipodi:role="line">object_uuid</tspan></text>
         <g
            transform="translate(-1.9337502,-57.999999)"
-           id="g4265">
+           id="g4265"
+           inkscape:export-xdpi="90"
+           inkscape:export-ydpi="90">
           <rect
              inkscape:export-ydpi="90"
              inkscape:export-xdpi="90"

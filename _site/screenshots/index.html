@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+
+<!-- Begin Jekyll SEO tag v2.3.0 -->
+<title>Screenshots of a working Indigo cluster | Indigo Documentation</title>
+<meta property="og:title" content="Screenshots of a working Indigo cluster" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="http://localhost:4000/screenshots/" />
+<meta property="og:url" content="http://localhost:4000/screenshots/" />
+<meta property="og:site_name" content="Indigo Documentation" />
+<script type="application/ld+json">
+{"name":null,"description":null,"author":null,"@type":"WebPage","url":"http://localhost:4000/screenshots/","publisher":null,"image":null,"headline":"Screenshots of a working Indigo cluster","dateModified":null,"datePublished":null,"sameAs":null,"mainEntityOfPage":null,"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#157878">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/assets/css/style.css?v=a750deca4ea982b6f862e0fea82274f7ce4def8d">
+    <link rel="stylesheet" href="/assets/css/mystyle.css">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Indigo Documentation</h1>
+      <h2 class="project-tagline"></h2>
+      
+        <a href="http://github.com/Indigo-Uliv" class="btn">View on GitHub</a>
+      
+      
+    </section>
+
+    <section class="main-content">
+      <h1 id="screenshots-of-a-working-indigo-cluster">Screenshots of a working Indigo cluster</h1>
+
+<ul>
+  <li>
+    <p>Login</p>
+
+    <ul>
+      <li>
+        <p>This picture shows the login screen of the Indigo Web server which can be
+installed on different nodes of the cluster.</p>
+
+        <p><img src="/screenshots/img/login1.png" alt="Login Screen" /></p>
+      </li>
+      <li>
+        <p>By default Indigo stores a combination of user/password on its own database. It
+is possible to replace this behaviour and validate a user using an LDAP server</p>
+
+        <p><img src="/screenshots/img/login2.png" alt="Authentication" /></p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>Manage Users</p>
+
+    <ul>
+      <li>
+        <p>A list of users defined in the system</p>
+
+        <p><img src="/screenshots/img/users1.png" alt="View Users" /></p>
+      </li>
+      <li>
+        <p>From the web interface it is possible to edit some part of the users profile.
+The Command Line tools allow a finer control of the users.</p>
+
+        <p><img src="/screenshots/img/users2.png" alt="Edit User" /></p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>Manage groups</p>
+
+    <ul>
+      <li>
+        <p>A list of groups defined in the system</p>
+
+        <p><img src="/screenshots/img/groups1.png" alt="View Groups" /></p>
+      </li>
+      <li>
+        <p>Membership can be modified thorugh the interface. That’s important as groups
+are used to define ACLs on collections and resources.</p>
+
+        <p><img src="/screenshots/img/groups2.png" alt="Edit Group" /></p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>Navigate in the Hierarchy</p>
+
+    <ul>
+      <li>
+        <p>The archive menu on the left displays the hierarchy of the collections/resources
+stored in the system.</p>
+
+        <p><img src="img/collection1.png" alt="View Collections" /></p>
+      </li>
+      <li>
+        <p>It is possible to create/edit collections from the web interface. The
+permissions (ACLs) are defined for the existing groups in the system. metadata
+are key/value pairs.</p>
+
+        <p><img src="/screenshots/img/collection2.png" alt="Add Collection" /></p>
+      </li>
+      <li>
+        <p>Resources are digital objects managed by the system, either stored in the
+Indigo database or linked to an external URL. The resource view display the
+CDMI URL that can be used from another client to access the resource.</p>
+
+        <p><img src="/screenshots/img/resource1.png" alt="View Resource" /></p>
+      </li>
+      <li>
+        <p>As for collections, resources can have associated ACLs and metadata.</p>
+
+        <p><img src="/screenshots/img/resource2.png" alt="Add/Edit Resource" /></p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>The Listener</p>
+
+    <ul>
+      <li>
+        <p>The listener is looking for the scripts it handles in the special collection
+<strong>‘/script’</strong>. This collection ACLs can be edited so only administrators can
+modify it.</p>
+
+        <p><img src="/screenshots/img/scripts.png" alt="Scripts" /></p>
+      </li>
+      <li>
+        <p>When a new script is created in the <strong>‘/script’</strong> collection, the listener
+registers it to a specific topic. This is defined via the <strong>topic</strong> metadata.
+This script is accociated to the topic string <strong>create/+/test/#</strong>, it is
+activated when anything (<strong>+</strong>) is created (<strong>create</strong>) in the collection
+/test or lower in the hierarchy (<strong>/test/#</strong>).</p>
+
+        <p><img src="/screenshots/img/listener1.png" alt="Listener Script" /></p>
+      </li>
+      <li>
+        <p>This is an example of a python script that automatically adds metadata to
+a resource uploaded on the cloud.</p>
+
+        <p><img src="img/update_script.png" alt="Listener Script Example" /></p>
+      </li>
+      <li>
+        <p>This shows the result of an update script which has created some metadata
+when the resource has been created in the /test collection.</p>
+      </li>
+    </ul>
+
+    <p><img src="/screenshots/img/listener2.png" alt="Listener Result" /></p>
+  </li>
+</ul>
+
+
+    </section>
+
+    
+  </body>
+</html>
