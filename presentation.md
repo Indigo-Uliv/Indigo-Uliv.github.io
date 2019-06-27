@@ -1,7 +1,7 @@
 # Indigo Presentation
 
 Indigo is an open source Data Management System designed for large-scale storage.
-It provides distributed, robust and extensible storage capabilities, coupling
+It is part of the Project RADON. It provides distributed, robust and extensible storage capabilities, coupling
 an object store to an easy to use trigger/rules system. This combination allows
 for scalable systems that can self-manage, are not reliant on complex workflow
 systems or external management frameworks. Relatively simple configurations
